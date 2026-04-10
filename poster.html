@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Poster A4 — REFUGIO Madrid 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f1e6c8;
+    --ink: #0e0e0e;
+    --red: #cc3a2c;
+    --yellow: #f1b91e;
+    --blue: #2362ab;
+  }
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Space Grotesk", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .poster {
+    width: 210mm;
+    height: 297mm;
+    padding: 18mm 22mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 4px solid var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Decorative Bauhaus blocks */
+  .deco-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10mm;
+    display: flex;
+  }
+  .deco-top div { flex: 1; }
+  .deco-top div:nth-child(1) { background: var(--red); }
+  .deco-top div:nth-child(2) { background: var(--yellow); }
+  .deco-top div:nth-child(3) { background: var(--blue); }
+
+  /* Logo */
+  .logo { margin-top: 8mm; }
+  .logo svg { width: 70mm; height: 70mm; }
+
+  /* Title */
+  .title {
+    text-align: center;
+    margin-top: 4mm;
+  }
+  .title h1 {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 52pt;
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+  .title h1 .l2 { color: var(--red); }
+  .title h1 .l3 { color: var(--blue); }
+
+  /* Rule */
+  .rule {
+    width: 100%;
+    height: 4px;
+    background: var(--ink);
+    margin: 5mm 0;
+  }
+
+  /* Tagline */
+  .tagline {
+    text-align: center;
+    font-size: 14pt;
+    line-height: 1.45;
+    max-width: 140mm;
+    font-weight: 500;
+  }
+
+  /* Details strip */
+  .details {
+    display: flex;
+    gap: 0;
+    width: 100%;
+    border: 4px solid var(--ink);
+    margin: 5mm 0;
+  }
+  .details .cell {
+    flex: 1;
+    padding: 4mm 5mm;
+    border-right: 4px solid var(--ink);
+    text-align: center;
+  }
+  .details .cell:last-child { border-right: none; }
+  .details .cell .k {
+    font-size: 8pt;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+  .details .cell .v {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 16pt;
+    text-transform: uppercase;
+    margin-top: 1mm;
+  }
+
+  /* Format pills */
+  .pills {
+    display: flex;
+    gap: 4mm;
+    margin: 2mm 0;
+  }
+  .pill {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 10pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3mm 5mm;
+    border: 3px solid var(--ink);
+  }
+  .pill.am { background: var(--yellow); }
+  .pill.pm { background: var(--blue); color: var(--cream); }
+
+  /* QR + URL */
+  .qr-block {
+    text-align: center;
+    margin-top: 2mm;
+  }
+  .qr-block img {
+    width: 35mm;
+    height: 35mm;
+    border: 3px solid var(--ink);
+    display: block;
+    margin: 0 auto 3mm;
+  }
+  .qr-block .url {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 14pt;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .qr-block .sub {
+    font-size: 10pt;
+    margin-top: 2mm;
+    opacity: 0.7;
+  }
+
+  /* Bottom deco */
+  .deco-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 6mm;
+    background: var(--ink);
+  }
+</style>
+</head>
+<body>
+  <div class="poster">
+    <div class="deco-top">
+      <div></div><div></div><div></div>
+    </div>
+
+    <div class="logo">
+      <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#0e0e0e" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter">
+          <path d="M64 138 L64 64 L104 64"/>
+          <path d="M94 54 L104 64 L94 74"/>
+          <path d="M206 64 L256 64 L256 138"/>
+          <path d="M246 128 L256 138 L266 128"/>
+          <path d="M256 240 L256 280 L64 280 L64 240"/>
+          <path d="M54 250 L64 240 L74 250"/>
+        </g>
+        <rect x="104" y="28" width="92" height="92" fill="#0e0e0e"/>
+        <rect x="8" y="148" width="92" height="92" fill="#0e0e0e"/>
+        <rect x="200" y="148" width="92" height="92" fill="#0e0e0e"/>
+        <rect x="114" y="18" width="92" height="92" fill="#f1b91e"/>
+        <rect x="18" y="138" width="92" height="92" fill="#cc3a2c"/>
+        <rect x="210" y="138" width="92" height="92" fill="#2362ab"/>
+      </svg>
+    </div>
+
+    <div class="title">
+      <h1>
+        <span>Refugio</span><br>
+        <span class="l2">Madrid</span><br>
+        <span class="l3">2026</span>
+      </h1>
+    </div>
+
+    <div class="rule"></div>
+
+    <p class="tagline">Una jornada para conectar al mejor talento técnico en Madrid: estudiantes, investigadores, desarrolladores y founders.</p>
+
+    <div class="details">
+      <div class="cell">
+        <div class="k">Fecha</div>
+        <div class="v">27 Junio</div>
+      </div>
+      <div class="cell">
+        <div class="k">Día</div>
+        <div class="v">Sábado</div>
+      </div>
+      <div class="cell">
+        <div class="k">Formato</div>
+        <div class="v">1 día</div>
+      </div>
+      <div class="cell">
+        <div class="k">Lugar</div>
+        <div class="v">Madrid</div>
+      </div>
+    </div>
+
+    <div class="pills">
+      <span class="pill am">Charlas + Hackathon</span>
+      <span class="pill pm">Ecosistema + Networking</span>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="qr-block">
+      <img
+        src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https%3A%2F%2Frefugiomadrid.com&bgcolor=f1e6c8&color=0e0e0e&format=svg"
+        alt="QR code a refugiomadrid.com"
+      >
+      <div class="url">refugiomadrid.com</div>
+      <div class="sub">Inscripciones y novedades · Suscríbete a la newsletter</div>
+    </div>
+
+    <div class="deco-bottom"></div>
+  </div>
+</body>
+</html>
