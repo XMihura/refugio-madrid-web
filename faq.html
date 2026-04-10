@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>FAQ — REFUGIO Madrid 2026</title>
+        <meta
+            name="description"
+            content="Preguntas frecuentes sobre REFUGIO Madrid 2026. Asistencia, perfiles, idioma, sponsors, ponentes y más."
+        >
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Archivo+Black&display=swap"
+            rel="stylesheet"
+        >
+        <style>
+            :root {
+                --cream: #f1e6c8;
+                --ink: #0e0e0e;
+                --red: #cc3a2c;
+                --yellow: #f1b91e;
+                --blue: #2362ab;
+                --rule: 3px;
+            }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            html, body {
+                background: var(--cream);
+                color: var(--ink);
+                font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+                font-size: 17px;
+                line-height: 1.5;
+                -webkit-font-smoothing: antialiased;
+            }
+            a { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--ink); }
+            a:hover { background: var(--yellow); }
+            ::selection { background: var(--yellow); color: var(--ink); }
+
+            .wrap {
+                max-width: 1180px;
+                margin: 0 auto;
+                padding: 32px 32px 96px;
+                border-left: var(--rule) solid var(--ink);
+                border-right: var(--rule) solid var(--ink);
+            }
+            .topbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                border-bottom: var(--rule) solid var(--ink);
+                padding-bottom: 14px;
+                margin-bottom: 36px;
+                font-size: 13px;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+            }
+            .topbar b {
+                font-family: "Archivo Black", sans-serif;
+                letter-spacing: 0.05em;
+            }
+            section { border-bottom: var(--rule) solid var(--ink); }
+            .sec-head {
+                display: grid;
+                grid-template-columns: 120px 1fr;
+                align-items: stretch;
+                border-bottom: var(--rule) solid var(--ink);
+            }
+            .sec-head .num {
+                font-family: "Archivo Black", sans-serif;
+                font-size: 64px;
+                line-height: 1;
+                padding: 18px 0 14px;
+                text-align: center;
+                border-right: var(--rule) solid var(--ink);
+                color: var(--cream);
+                background: var(--ink);
+            }
+            .sec-head .lbl {
+                padding: 24px 28px;
+                display: flex;
+                align-items: center;
+                font-family: "Archivo Black", sans-serif;
+                font-size: 22px;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+            }
+            .sec-body { padding: 36px; }
+
+            .faq { list-style: none; padding: 0; }
+            .faq details { border-bottom: var(--rule) solid var(--ink); }
+            .faq details:last-child { border-bottom: none; }
+            .faq summary {
+                font-family: "Archivo Black", sans-serif;
+                font-size: 16px;
+                letter-spacing: 0.02em;
+                padding: 22px 40px 22px 0;
+                cursor: pointer;
+                list-style: none;
+                position: relative;
+            }
+            .faq summary::-webkit-details-marker { display: none; }
+            .faq summary::after {
+                content: "+";
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                font-family: "Archivo Black", sans-serif;
+                font-size: 24px;
+                color: var(--red);
+                line-height: 1;
+            }
+            .faq details[open] summary::after { content: "−"; }
+            .faq .answer { padding: 0 0 22px 0; font-size: 16px; line-height: 1.55; }
+
+            footer {
+                padding: 22px 32px;
+                display: flex;
+                justify-content: space-between;
+                font-size: 12px;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                border-top: var(--rule) solid var(--ink);
+            }
+
+            @media (max-width: 820px) {
+                .wrap { padding: 20px 16px 64px; border-left: none; border-right: none; }
+                .sec-head { grid-template-columns: 80px 1fr; }
+                .sec-head .num { font-size: 42px; }
+                .sec-head .lbl { font-size: 16px; padding: 18px 20px; }
+                .sec-body { padding: 24px 20px; }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="topbar">
+                <span><b><a href="index.html" style="border-bottom:none">REFUGIO</a></b> · Madrid · 2026</span>
+                <span><a href="index.html" style="border-bottom:none">← Volver</a></span>
+            </div>
+
+            <section style="border-bottom:none">
+                <div class="sec-head">
+                    <div class="num">?</div>
+                    <h2 class="lbl">FAQ</h2>
+                </div>
+                <div class="sec-body">
+                    <div class="faq">
+                        <details>
+                            <summary>¿Cuánto cuesta asistir?</summary>
+                            <div class="answer">Gratis. Los costes los cubren los sponsors. Pero hay proceso de selección para el hackathon de la mañana.</div>
+                        </details>
+                        <details>
+                            <summary>¿Qué perfil buscáis?</summary>
+                            <div class="answer">Diverso: estudiantes, investigadores, desarrolladores, ingenieros y perfiles STEM en general. Buscamos capacidad analítica y ganas de resolver problemas, no solo experiencia con código.</div>
+                        </details>
+                        <details>
+                            <summary>¿Tengo que saber programar?</summary>
+                            <div class="answer">No necesariamente, pero es un hackathon: habrá que resolver un problema con código. Si vienes con perfil analítico fuerte y ganas de aprender, encajas.</div>
+                        </details>
+                        <details>
+                            <summary>¿Cómo me apunto al hackathon?</summary>
+                            <div class="answer">Abriremos inscripciones próximamente con un proceso de selección. Suscríbete a la newsletter para enterarte cuando se abran.</div>
+                        </details>
+                        <details>
+                            <summary>¿Puedo ir solo a la sesión de tarde?</summary>
+                            <div class="answer">Dependerá del aforo del venue. Es posible que también requiera selección.</div>
+                        </details>
+                        <details>
+                            <summary>¿Tengo que llevar mi propio portátil?</summary>
+                            <div class="answer">Sí. También tus propios tokens o créditos de API (Bring Your Own Tokens), salvo que un sponsor aporte créditos para los participantes.</div>
+                        </details>
+                        <details>
+                            <summary>¿En qué idioma es el evento?</summary>
+                            <div class="answer">Español. Las charlas técnicas de la mañana pueden ser en inglés dependiendo del ponente.</div>
+                        </details>
+                        <details>
+                            <summary>No soy de Madrid, ¿puedo asistir?</summary>
+                            <div class="answer">Sí, queremos al mejor talento de España independientemente de dónde viva. Pero ten en cuenta que parte del evento — sobre todo la sesión de tarde — se centra en formar ecosistema en Madrid: estado de la ciudad, retos locales, conexiones entre gente que opera aquí.</div>
+                        </details>
+                        <details>
+                            <summary>¿Dónde es exactamente?</summary>
+                            <div class="answer">Madrid. Venue por confirmar — lo anunciaremos en cuanto esté cerrado.</div>
+                        </details>
+                        <details>
+                            <summary>¿Habrá comida?</summary>
+                            <div class="answer">Sí. Catering básico durante el día y cóctel con cervezas por la tarde para el networking.</div>
+                        </details>
+                        <details>
+                            <summary>¿Hay tiers de sponsorship (oro, plata, bronce)?</summary>
+                            <div class="answer">No. Hablamos caso por caso y encajamos lo que cada empresa puede aportar con lo que el evento necesita.</div>
+                        </details>
+                        <details>
+                            <summary>¿Pagáis a los ponentes?</summary>
+                            <div class="answer">Honor-only. Si vienes de fuera de Madrid y eres relevante para el evento, intentamos cubrir viaje y alojamiento vía sponsors.</div>
+                        </details>
+                        <details>
+                            <summary>¿Quién organiza esto?</summary>
+                            <div class="answer">Una iniciativa independiente de <a href="https://twitter.com/XMihura" target="_blank" rel="noopener">@XMihura</a>. No hay empresa, agencia ni ánimo de lucro detrás.</div>
+                        </details>
+                        <details>
+                            <summary>¿Por qué organizas esto? ¿Qué ganas tú?</summary>
+                            <div class="answer">Vivo en Zurich pero tengo raíces en Madrid. No cobro entrada, no hay comisión, no hay empresa detrás. Los sponsors cubren los costes. Lo hago porque creo que Madrid tiene un potencial desaprovechado y que un grupo pequeño de gente competente en la misma sala puede mover cosas que de otra forma no se mueven.</div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <span>REFUGIO Madrid 2026 · <a href="index.html" style="border-bottom:none">Inicio</a></span>
+                <span>Iniciativa independiente de
+                    <a href="https://twitter.com/XMihura" target="_blank" rel="noopener" style="border-bottom-width:1px">@XMihura</a>
+                </span>
+            </footer>
+        </div>
+    </body>
+</html>
