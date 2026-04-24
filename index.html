@@ -590,6 +590,53 @@
                 color: var(--ink);
             }
 
+            /* Sponsors */
+            .sponsors-grid {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 48px;
+                padding: 16px 0;
+            }
+            .sponsor-logo {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 48px;
+            }
+            .sponsor-logo img,
+            .sponsor-logo svg {
+                max-height: 44px;
+                width: auto;
+            }
+            .sponsor-logo--manfred img {
+                max-height: 32px;
+            }
+            .sponsor-logo--madtech {
+                position: relative;
+                display: inline-block;
+                color: var(--ink);
+                padding-top: 14px;
+                line-height: 1;
+                margin-top: 6px;
+            }
+            .sponsor-logo--madtech svg {
+                position: absolute;
+                top: 0;
+                right: -0.2em;
+                width: 68px;
+                height: 12px;
+            }
+            .sponsor-logo--madtech span {
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                font-size: 16px;
+                font-weight: 600;
+                letter-spacing: 0.09em;
+                text-transform: uppercase;
+                white-space: nowrap;
+            }
+
             /* FAQ accordion */
             .faq {
                 list-style: none;
@@ -1040,11 +1087,9 @@
                             <div class="v">Madrid</div>
                         </div>
                         <div class="d-status">
-                            <span class="stamp">Venue · próximamente</span>
+                            <span class="stamp">Venue</span>
                             <p>
-                                Estamos cerrando el espacio definitivo entre
-                                varios candidatos en Madrid. Anunciaremos el
-                                venue cuando esté confirmado.
+                                Mad Tech Campus, Matadero Madrid.
                             </p>
                         </div>
                     </div>
@@ -1057,22 +1102,34 @@
                         <h2 class="lbl">Sponsors</h2>
                     </div>
                     <div class="sec-body">
-                        <div class="manifest">
+                        <div class="sponsors-grid">
+                            <div class="sponsor-logo sponsor-logo--manfred">
+                                <img src="logo_manfred_color.svg" alt="Manfred" />
+                            </div>
+                            <div class="sponsor-logo">
+                                <img src="logo_cursor.png" alt="Cursor" />
+                            </div>
+                            <div class="sponsor-logo sponsor-logo--madtech" aria-label="Mad Tech Campus">
+                                <svg viewBox="-1 -1 70 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M12 12 L20 0 M24 12 L32 0 M36 12 L44 0 M48 12 L56 0 M60 12 L68 0" stroke="currentColor" stroke-width="2" stroke-linecap="square"/>
+                                </svg>
+                                <span>Mad Tech Campus</span>
+                            </div>
+                        </div>
+                        <div class="manifest" style="margin-top: 32px">
                             <p>
                                 REFUGIO no necesita un presupuesto enorme. Sólo
                                 lo básico: espacio, comida, café, créditos de
                                 cómputo y algún premio. Si tu empresa construye
                                 producto técnico de verdad y quiere aportar,
-                                espacio, catering, créditos de API o premios
-                                contacta con nosotros.
+                                <a href="mailto:mihurax@gmail.com?subject=Sponsor%20REFUGIO%20Madrid%202026">contacta con nosotros</a>.
                             </p>
                             <p>
                                 Más importante que el dinero es la
                                 <b>presencia</b>. Queremos a quien está
-                                construyendo cosas reales que mejoran el mundo
-                                en la sala, hablando con los participantes.
-                                Parte del objetivo es darse a conocer e inspirar
-                                a quién está empezando.
+                                construyendo cosas reales en la sala, hablando
+                                con los participantes. Son parte del evento, no
+                                logos en el fondo.
                             </p>
                         </div>
                     </div>
