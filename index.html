@@ -637,6 +637,68 @@
                 white-space: nowrap;
             }
 
+            /* Speakers grid */
+            .speakers-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 220px;
+                gap: 0;
+            }
+            .speaker-card {
+                padding: 0;
+                border-right: var(--rule) solid var(--ink);
+                border-bottom: var(--rule) solid var(--ink);
+                display: grid;
+                grid-template-columns: 180px 1fr;
+                overflow: hidden;
+            }
+            .speaker-card:nth-child(2n) { border-right: none; }
+            .speaker-photo {
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: var(--ink);
+                color: var(--cream);
+                font-family: "Archivo Black", sans-serif;
+                font-size: 42px;
+                border-right: var(--rule) solid var(--ink);
+            }
+            .speaker-photo img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                image-rendering: auto;
+            }
+            .speaker-info {
+                padding: 24px 22px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 10px;
+            }
+            .speaker-name {
+                font-family: "Archivo Black", sans-serif;
+                font-size: 18px;
+                text-transform: uppercase;
+                letter-spacing: 0.02em;
+                line-height: 1.15;
+            }
+            .speaker-role { font-size: 13px; line-height: 1.45; opacity: 0.75; }
+            .speaker-session {
+                display: inline-block;
+                align-self: flex-start;
+                font-family: "Archivo Black", sans-serif;
+                font-size: 10px;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                padding: 4px 10px;
+                border: 2px solid var(--ink);
+            }
+            .speaker-session.am { background: var(--yellow); }
+            .speaker-session.pm { background: var(--blue); color: var(--cream); border-color: var(--blue); }
+
             /* FAQ accordion */
             .faq {
                 list-style: none;
@@ -794,6 +856,13 @@
                 .datebox > div:last-child {
                     border-bottom: none;
                 }
+                .speakers-grid {
+                    grid-template-columns: 1fr;
+                }
+                .speaker-card {
+                    border-right: none;
+                }
+                .speaker-card:nth-child(2n) { border-right: none; }
                 .sec-head {
                     grid-template-columns: 80px 1fr;
                 }
@@ -939,11 +1008,36 @@
                         <div>Fecha<b>27 Jun 2026</b></div>
                         <div>Formato<b>1 día, presencial</b></div>
                         <div>Lugar<b>Madrid</b></div>
+                        <div>Precio<b>Gratis</b></div>
                     </div>
                 </div>
             </div>
 
             <main>
+                <!-- 00 INSCRIPCIONES -->
+                <section class="cta" style="background: var(--yellow); border-bottom: var(--rule) solid var(--ink);">
+                    <div>
+                        <h2>Inscripciones <em>abiertas</em></h2>
+                        <p style="font-size: 17px; line-height: 1.5; margin-top: 14px;">
+                            Asistencia <b>gratuita</b> — los costes los cubren
+                            los sponsors. Plazo hasta el
+                            <b>29 de mayo, 23:59</b>.<br />
+                            Comunicaremos a los seleccionados antes del
+                            <b>3 de junio</b>.
+                        </p>
+                        <p style="font-size: 13px; line-height: 1.4; margin-top: 10px; opacity: 0.75;">
+                            El formulario requiere cuenta de Google.
+                        </p>
+                    </div>
+                    <a
+                        class="btn"
+                        href="https://forms.gle/VMbXVtjw6rTyg3D76"
+                        target="_blank"
+                        rel="noopener"
+                        >Solicitar plaza →</a
+                    >
+                </section>
+
                 <!-- 01 POR QUÉ -->
                 <section>
                     <div class="sec-head">
@@ -1002,7 +1096,7 @@
                                     proyectos reales.
                                 </li>
                                 <li>
-                                    <b>10:30 →</b> — 5 horas de hackathon. Reto
+                                    <b>10:30–16:00</b> — 5 horas de hackathon. Reto
                                     técnico fuera de la zona de confort,
                                     apoyándose en herramientas de IA.
                                 </li>
@@ -1022,14 +1116,15 @@
                             </div>
                             <ul>
                                 <li>
-                                    <b>Charlas</b> — el estado real del
-                                    ecosistema en Madrid: qué funciona, qué
+                                    <b>17:00–19:00</b> — Charlas. El estado real
+                                    del ecosistema en Madrid: qué funciona, qué
                                     falla, qué haría falta para moverlo.
                                 </li>
                                 <li>
-                                    <b>Cóctel + networking</b> — cervezas,
-                                    conversación y conexión directa entre
-                                    participantes, empresas y ponentes.
+                                    <b>19:00 en adelante</b> — Cóctel +
+                                    networking. Cervezas, conversación y
+                                    conexión directa entre participantes,
+                                    empresas y ponentes.
                                 </li>
                             </ul>
                         </div>
@@ -1135,11 +1230,66 @@
                     </div>
                 </section>
 
-                <!-- 06 PONENTES -->
+                <!-- 06 SPEAKERS CONFIRMADOS -->
                 <section>
                     <div class="sec-head">
                         <div class="num">06</div>
-                        <h2 class="lbl">Ponentes: ¿Qué buscamos?</h2>
+                        <h2 class="lbl">Speakers confirmados</h2>
+                    </div>
+                    <div class="speakers-grid" style="margin:28px 0;border-top:var(--rule) solid var(--ink);">
+                        <!-- Guillermo -->
+                        <div class="speaker-card">
+                            <div class="speaker-photo"><img src="speaker-guillermo.jpg" alt="Guillermo García Cobo" /></div>
+                            <div class="speaker-info">
+                                <div class="speaker-name">Guillermo García Cobo</div>
+                                <div class="speaker-role">Autonomous Driving @ NVIDIA.</div>
+                                <span class="speaker-session am">Sesión AM</span>
+                            </div>
+                        </div>
+                        <!-- Mihura -->
+                        <div class="speaker-card">
+                            <div class="speaker-photo"><img src="speaker-mihura.jpg" alt="Mihura" /></div>
+                            <div class="speaker-info">
+                                <div class="speaker-name">Mihura</div>
+                                <div class="speaker-role">Organizador de REFUGIO</div>
+                                <span class="speaker-session am">Sesión AM</span>
+                            </div>
+                        </div>
+                        <!-- Maisa (full width, two photos) -->
+                        <div class="speaker-card" style="grid-column:1/-1;grid-template-columns:180px 180px 1fr;border-right:none;">
+                            <div class="speaker-photo"><img src="speaker-david.jpg" alt="David Villalón" /></div>
+                            <div class="speaker-photo" style="border-right:none;"><img src="speaker-manuel.jpg" alt="Manuel Romero" /></div>
+                            <div class="speaker-info">
+                                <div class="speaker-name">David Villalón & Manuel Romero</div>
+                                <div class="speaker-role">Co-founders de Maisa AI.</div>
+                                <span class="speaker-session pm">Sesión PM</span>
+                            </div>
+                        </div>
+                        <!-- Chefo -->
+                        <div class="speaker-card" style="border-right:var(--rule) solid var(--ink);">
+                            <div class="speaker-photo"><img src="speaker-chefo.jpg" alt="Chefo Hernanz" /></div>
+                            <div class="speaker-info">
+                                <div class="speaker-name">Chefo Hernanz</div>
+                                <div class="speaker-role">Chief Business Officer @ THEKER Robotics.</div>
+                                <span class="speaker-session pm">Sesión PM</span>
+                            </div>
+                        </div>
+                        <!-- Más speakers placeholder -->
+                        <div class="speaker-card" style="border-right:none;">
+                            <div class="speaker-photo" style="font-size:28px;letter-spacing:0.05em;">+ + +</div>
+                            <div class="speaker-info">
+                                <div class="speaker-name" style="opacity:0.5;">Más speakers</div>
+                                <div class="speaker-role">Próximamente</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 07 PONENTES -->
+                <section>
+                    <div class="sec-head">
+                        <div class="num">07</div>
+                        <h2 class="lbl">¿Quieres dar una charla?</h2>
                     </div>
                     <div class="sec-body">
                         <div class="manifest">
@@ -1200,10 +1350,11 @@
                             >
                         </div>
                         <div class="ctacard">
-                            <h3>Suscríbete</h3>
+                            <h3>Newsletter</h3>
                             <p>
-                                Te avisaremos cuando se abran inscripciones o
-                                haya novedades. Sin spam.
+                                Si no te interesa solicitar plaza pero
+                                quieres enterarte de novedades del evento o
+                                futuras ediciones, suscríbete. Sin spam.
                             </p>
                             <a
                                 class="btn2"
@@ -1240,39 +1391,4 @@
                     target="_blank"
                     rel="noopener"
                     >WhatsApp</a
-                >
-                <a
-                    class="share-link"
-                    href="https://t.me/share/url?url=https%3A%2F%2Frefugiomadrid.com&text=REFUGIO%20Madrid%202026"
-                    target="_blank"
-                    rel="noopener"
-                    >Telegram</a
-                >
-                <a
-                    class="share-link"
-                    href="mailto:?subject=REFUGIO%20Madrid%202026&body=https%3A%2F%2Frefugiomadrid.com"
-                    >Email</a
-                >
-            </div>
-
-            <div class="faq-banner">
-                <span>¿Tienes preguntas?</span>
-                <a href="faq.html" class="topbar-btn" style="font-size:14px;padding:10px 20px">Consulta la FAQ →</a>
-            </div>
-
-            <footer>
-                <span>REFUGIO Madrid 2026</span>
-                <span
-                    >Iniciativa independiente de
-                    <a
-                        href="https://twitter.com/XMihura"
-                        target="_blank"
-                        rel="noopener"
-                        style="border-bottom-width: 1px"
-                        >@XMihura</a
-                    ></span
-                >
-            </footer>
-        </div>
-    </body>
-</html>
+             

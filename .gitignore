@@ -1,0 +1,35 @@
+# ---------------------------------------------------------------------------
+# REFUGIO Madrid 2026 — .gitignore
+# Lo que aparece en la web pública (referenciado por index.html / faq.html)
+# se mantiene trackeado. El resto, principalmente material asociado a las
+# fichas (cards) de los speakers que se reparten por URL pero no se enlazan
+# desde el sitio, se queda fuera del repo.
+# ---------------------------------------------------------------------------
+
+# Fichas individuales y herramienta de encuadre
+ficha-*.html
+editor-fichas.html
+
+# Logos auxiliares usados solo en las fichas (no aparecen en la web)
+nvidia-logo-*.svg
+logo-maisa.png
+logo_theker.png
+
+# Fotos fuente / alta resolución para las fichas
+foto_guillermo_full.jpeg
+
+# Fotos originales sin recortar (la web usa speaker-*.jpg)
+Chefo.jpg
+david.jpg
+guillermo.jpg
+mihura.jpg
+Manuel-Romero-horizontal.png
+
+# Privacidad (accesible por URL pero no enlazada desde la web; comenta esta
+# línea si prefieres trackear el HTML)
+# privacidad.html
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log
