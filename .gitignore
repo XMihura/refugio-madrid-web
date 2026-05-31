@@ -2,11 +2,11 @@
 # REFUGIO Madrid 2026 — .gitignore
 # Lo que aparece en la web pública (referenciado por index.html / faq.html)
 # se mantiene trackeado. El resto, principalmente material asociado a las
-# fichas (cards) de los speakers que se reparten por URL pero no se enlazan
-# desde el sitio, se queda fuera del repo.
+# fichas (cards) de los speakers que no se enlaza desde el sitio, se queda
+# fuera del repo.
 # ---------------------------------------------------------------------------
 
-# Fichas individuales y herramienta de encuadre
+# Fichas individuales y herramienta local de encuadre
 ficha-*.html
 editor-fichas.html
 
@@ -33,3 +33,4 @@ Manuel-Romero-horizontal.png
 .DS_Store
 Thumbs.db
 *.log
+email-newsletter.html

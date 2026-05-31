@@ -504,6 +504,12 @@
                 background: var(--yellow);
                 color: var(--ink);
             }
+            .cta .btn.btn--disabled,
+            .cta .btn.btn--disabled:hover {
+                background: var(--cream);
+                color: var(--ink);
+                cursor: default;
+            }
 
             /* Not-list (Qué NO es) */
             .notlist {
@@ -644,6 +650,21 @@
                 grid-auto-rows: 220px;
                 gap: 0;
             }
+            .speakers-grid--3cols {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-auto-rows: 220px;
+                gap: 0;
+            }
+            .speakers-grid--3cols .speaker-card {
+                grid-template-columns: clamp(120px, 14vw, 165px) 1fr;
+            }
+            .speakers-grid--3cols .speaker-card:nth-child(2n) {
+                border-right: var(--rule) solid var(--ink);
+            }
+            .speakers-grid--3cols .speaker-card:nth-child(3n) {
+                border-right: none;
+            }
             .speaker-card {
                 padding: 0;
                 border-right: var(--rule) solid var(--ink);
@@ -651,8 +672,13 @@
                 display: grid;
                 grid-template-columns: 180px 1fr;
                 overflow: hidden;
+                color: inherit;
+                text-decoration: none;
             }
             .speaker-card:nth-child(2n) { border-right: none; }
+            a.speaker-card:hover .speaker-name {
+                color: var(--red);
+            }
             .speaker-card--double {
                 grid-column: 1 / -1;
                 grid-template-columns: 180px 180px 1fr;
@@ -861,9 +887,14 @@
                 .datebox > div:last-child {
                     border-bottom: none;
                 }
-                .speakers-grid {
+                .speakers-grid,
+                .speakers-grid--3cols {
                     grid-template-columns: 1fr;
                     grid-auto-rows: auto;
+                }
+                .speakers-grid--3cols .speaker-card {
+                    grid-template-columns: 180px 1fr !important;
+                    border-right: none !important;
                 }
                 .speaker-card {
                     border-right: none;
@@ -1037,24 +1068,18 @@
                 <!-- 00 INSCRIPCIONES -->
                 <section class="cta" style="background: var(--yellow); border-bottom: var(--rule) solid var(--ink);">
                     <div>
-                        <h2>Inscripciones <em>abiertas</em></h2>
+                        <h2>Inscripciones <em>cerradas</em></h2>
                         <p style="font-size: 17px; line-height: 1.5; margin-top: 14px;">
-                            Asistencia <b>gratuita</b>. Plazo hasta el
+                            El plazo de inscripción finalizó el
                             <b>29 de mayo, 23:59</b>.<br />
                             Comunicaremos a los seleccionados antes del
                             <b>3 de junio</b>.
                         </p>
                         <p style="font-size: 13px; line-height: 1.4; margin-top: 10px; opacity: 0.75;">
-                            El formulario requiere cuenta de Google.
+                            Gracias a todas las personas que se han apuntado.
                         </p>
                     </div>
-                    <a
-                        class="btn"
-                        href="https://forms.gle/VMbXVtjw6rTyg3D76"
-                        target="_blank"
-                        rel="noopener"
-                        >Solicitar plaza</a
-                    >
+                    <span class="btn btn--disabled" aria-disabled="true">Registros cerrados</span>
                 </section>
 
                 <!-- 01 POR QUÉ -->
@@ -1255,27 +1280,47 @@
                         <div class="num">06</div>
                         <h2 class="lbl">Speakers confirmados</h2>
                     </div>
-                    <div class="speakers-grid" style="margin:28px 0;border-top:var(--rule) solid var(--ink);">
+                    <div class="speakers-grid--3cols" style="margin-top:28px;border-top:var(--rule) solid var(--ink);">
                         <!-- Guillermo -->
-                        <div class="speaker-card">
+                        <a class="speaker-card" href="speakers.html#guillermo">
                             <div class="speaker-photo"><img src="speaker-guillermo.jpg" alt="Guillermo García Cobo" /></div>
                             <div class="speaker-info">
                                 <div class="speaker-name">Guillermo García Cobo</div>
                                 <div class="speaker-role">Autonomous Driving @ NVIDIA.</div>
                                 <span class="speaker-session am">Sesión AM</span>
                             </div>
-                        </div>
+                        </a>
+                        <!-- Daniel -->
+                        <a class="speaker-card" href="speakers.html#daniel">
+                            <div class="speaker-photo" style="position: relative; background: var(--cream);">
+                                <div style="position: absolute; inset: -20%; filter: blur(25px); width: 140%; height: 140%;">
+                                    <!-- Rojo (Left) -->
+                                    <div style="position: absolute; width: 60%; height: 60%; background: var(--red); border-radius: 50%; top: 25%; left: 5%; opacity: 0.9;"></div>
+                                    <!-- Amarillo (Top Center) -->
+                                    <div style="position: absolute; width: 60%; height: 60%; background: var(--yellow); border-radius: 50%; top: 5%; left: 20%; opacity: 1.0;"></div>
+                                    <!-- Azul (Right) -->
+                                    <div style="position: absolute; width: 51%; height: 51%; background: var(--blue); border-radius: 50%; top: 30%; right: 10%; opacity: 0.6;"></div>
+                                </div>
+                            </div>
+                            <div class="speaker-info">
+                                <div class="speaker-name">Daniel Gallo</div>
+                                <div class="speaker-role">Member of Technical Staff @ Microsoft AI.</div>
+                                <span class="speaker-session am">Sesión AM</span>
+                            </div>
+                        </a>
                         <!-- Mihura -->
-                        <div class="speaker-card">
+                        <a class="speaker-card" href="speakers.html#mihura">
                             <div class="speaker-photo"><img src="speaker-mihura.jpg" alt="Mihura" /></div>
                             <div class="speaker-info">
                                 <div class="speaker-name">Mihura</div>
                                 <div class="speaker-role">Organizador de REFUGIO</div>
                                 <span class="speaker-session am">Sesión AM</span>
                             </div>
-                        </div>
+                        </a>
+                    </div>
+                    <div class="speakers-grid" style="margin-bottom:28px;">
                         <!-- Maisa (full width, two photos) -->
-                        <div class="speaker-card speaker-card--double">
+                        <a class="speaker-card speaker-card--double" href="speakers.html#maisa">
                             <div class="speaker-photo"><img src="speaker-david.jpg" alt="David Villalón" /></div>
                             <div class="speaker-photo" style="border-right:none;"><img src="speaker-manuel.jpg" alt="Manuel Romero" /></div>
                             <div class="speaker-info">
@@ -1283,18 +1328,27 @@
                                 <div class="speaker-role">Co-founders de Maisa AI.</div>
                                 <span class="speaker-session pm">Sesión PM</span>
                             </div>
-                        </div>
+                        </a>
                         <!-- Chefo -->
-                        <div class="speaker-card" style="border-right:var(--rule) solid var(--ink);">
+                        <a class="speaker-card" href="speakers.html#chefo" style="border-right:var(--rule) solid var(--ink);">
                             <div class="speaker-photo"><img src="speaker-chefo.jpg" alt="Chefo Hernanz" /></div>
                             <div class="speaker-info">
                                 <div class="speaker-name">Chefo Hernanz</div>
                                 <div class="speaker-role">Chief Business Officer @ THEKER Robotics.</div>
                                 <span class="speaker-session pm">Sesión PM</span>
                             </div>
-                        </div>
+                        </a>
+                        <!-- Antonio Artés Rodríguez -->
+                        <a class="speaker-card" href="speakers.html#antonio" style="border-right:none;">
+                            <div class="speaker-photo"><img src="speaker-antonio.jpg" alt="Antonio Artés Rodríguez" /></div>
+                            <div class="speaker-info">
+                                <div class="speaker-name">Antonio Artés Rodríguez</div>
+                                <div class="speaker-role">Director de la Unidad ELLIS Madrid y catedrático de la UC3M.</div>
+                                <span class="speaker-session pm">Sesión PM</span>
+                            </div>
+                        </a>
                         <!-- Más speakers placeholder -->
-                        <div class="speaker-card" style="border-right:none;">
+                        <div class="speaker-card" style="border-right:var(--rule) solid var(--ink);">
                             <div class="speaker-photo" style="font-size:28px;letter-spacing:0.05em;">+ + +</div>
                             <div class="speaker-info">
                                 <div class="speaker-name" style="opacity:0.5;">Más speakers</div>
