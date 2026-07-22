@@ -134,6 +134,7 @@ a:hover { background: var(--yellow); }
 }
 .abstract p { font-size: 15.5px; color: #3a352c; margin-bottom: 10px; }
 
+.paper h2, .paper h3, .paper h4, figure.paper-fig { scroll-margin-top: 64px; }
 .paper h2 {
   font-family: "Archivo Black", sans-serif;
   font-size: clamp(23px, 3.4vw, 30px);
@@ -303,6 +304,172 @@ ul.references li {
 }
 .endmatter a { color: var(--ink); }
 
+/* ---------- reading progress + section nav ---------- */
+#progressbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: rgba(14, 14, 14, 0.15);
+  z-index: 60;
+}
+#progressbar .fill {
+  height: 100%;
+  width: 0%;
+  background: var(--red);
+  border-right: 2px solid var(--ink);
+}
+
+#sectionbar {
+  position: fixed;
+  top: 5px;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: var(--ink);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 16px;
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: translateY(-130%);
+  transition: transform 0.25s ease;
+}
+#sectionbar.visible { transform: translateY(0); }
+#sectionbar .sb-brand {
+  font-family: "Archivo Black", sans-serif;
+  letter-spacing: 0.05em;
+  border-bottom: none;
+  color: var(--cream);
+  flex-shrink: 0;
+}
+#sectionbar .sb-brand:hover { background: none; color: var(--yellow); }
+#sectionbar .sb-current {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--yellow);
+  font-weight: 700;
+}
+#sectionbar .sb-toc-btn {
+  font-family: "Archivo Black", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  background: var(--yellow);
+  color: var(--ink);
+  border: 2px solid var(--cream);
+  padding: 6px 12px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+#sectionbar .sb-toc-btn:hover { background: var(--cream); }
+
+#tocpanel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(380px, 92vw);
+  background: var(--cream);
+  border-left: var(--rule) solid var(--ink);
+  z-index: 70;
+  transform: translateX(105%);
+  transition: transform 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -8px 0 24px rgba(14, 14, 14, 0.25);
+}
+#tocpanel.open { transform: translateX(0); }
+#tocpanel .toc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: var(--rule) solid var(--ink);
+  font-family: "Archivo Black", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 14px;
+}
+#tocpanel .toc-close {
+  font-family: "Archivo Black", sans-serif;
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  font-size: 13px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+#tocpanel .toc-close:hover { background: var(--red); }
+#tocpanel .toc-list { overflow-y: auto; padding: 10px 0 30px; }
+#tocpanel .toc-link {
+  display: block;
+  padding: 11px 22px;
+  border-bottom: 1px solid rgba(14, 14, 14, 0.15);
+  font-size: 14.5px;
+  font-weight: 500;
+  border-left: 6px solid transparent;
+}
+#tocpanel .toc-link:hover { background: var(--yellow); }
+#tocpanel .toc-link.active {
+  border-left-color: var(--red);
+  background: #f6eeda;
+  font-weight: 700;
+}
+#tocbackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 14, 14, 0.35);
+  z-index: 65;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+#tocbackdrop.open { opacity: 1; pointer-events: auto; }
+
+/* Desktop persistent sidebar */
+#sidetoc {
+  position: fixed;
+  top: 110px;
+  left: calc(50% - 440px - 250px);
+  width: 220px;
+  z-index: 40;
+  font-size: 12.5px;
+  display: none;
+}
+@media (min-width: 1420px) {
+  #sidetoc { display: block; }
+  #sectionbar .sb-toc-btn { display: none; }
+}
+#sidetoc .side-head {
+  font-family: "Archivo Black", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 11px;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+  border-bottom: var(--rule) solid var(--ink);
+}
+#sidetoc .toc-link {
+  display: block;
+  padding: 6px 8px 6px 10px;
+  border-bottom: none;
+  border-left: 4px solid transparent;
+  color: var(--gray);
+  line-height: 1.3;
+}
+#sidetoc .toc-link:hover { background: var(--yellow); color: var(--ink); }
+#sidetoc .toc-link.active {
+  border-left-color: var(--red);
+  color: var(--ink);
+  font-weight: 700;
+}
+
 @media (max-width: 640px) {
   .wrap { padding: 18px 16px 72px; border-width: 2px; }
   html, body { font-size: 16px; }
@@ -310,6 +477,47 @@ ul.references li {
 </style>
 </head>
 <body>
+
+<div id="progressbar"><div class="fill"></div></div>
+
+<div id="sectionbar">
+  <a class="sb-brand" href="index.html">REFUGIO</a>
+  <span class="sb-current" id="sb-current">Speedrunning as a model of progress</span>
+  <button type="button" class="sb-toc-btn" id="sb-toc-btn">Contents</button>
+</div>
+
+<div id="tocbackdrop"></div>
+<nav id="tocpanel" aria-label="Table of contents">
+  <div class="toc-head">
+    <span>Contents</span>
+    <button type="button" class="toc-close" id="toc-close">Close &times;</button>
+  </div>
+  <div class="toc-list">
+    <a class="toc-link" href="#sec-1" data-target="sec-1">1. Introduction</a>
+<a class="toc-link" href="#sec-2" data-target="sec-2">2. A new era of progress</a>
+<a class="toc-link" href="#sec-3" data-target="sec-3">3. Designing a hackathon in the agentic era</a>
+<a class="toc-link" href="#sec-4" data-target="sec-4">4. The infrastructure</a>
+<a class="toc-link" href="#sec-5" data-target="sec-5">5. What happened</a>
+<a class="toc-link" href="#sec-6" data-target="sec-6">6. The autonomous searchers</a>
+<a class="toc-link" href="#sec-7" data-target="sec-7">7. Conclusions</a>
+<a class="toc-link" href="#references" data-target="references">References</a>
+<a class="toc-link" href="#appendix" data-target="appendix">Appendix A. The challenge brief, as given to participants</a>
+  </div>
+</nav>
+
+<nav id="sidetoc" aria-label="Sections">
+  <div class="side-head">Contents</div>
+  <a class="toc-link" href="#sec-1" data-target="sec-1">1. Introduction</a>
+<a class="toc-link" href="#sec-2" data-target="sec-2">2. A new era of progress</a>
+<a class="toc-link" href="#sec-3" data-target="sec-3">3. Designing a hackathon in the agentic era</a>
+<a class="toc-link" href="#sec-4" data-target="sec-4">4. The infrastructure</a>
+<a class="toc-link" href="#sec-5" data-target="sec-5">5. What happened</a>
+<a class="toc-link" href="#sec-6" data-target="sec-6">6. The autonomous searchers</a>
+<a class="toc-link" href="#sec-7" data-target="sec-7">7. Conclusions</a>
+<a class="toc-link" href="#references" data-target="references">References</a>
+<a class="toc-link" href="#appendix" data-target="appendix">Appendix A. The challenge brief, as given to participants</a>
+</nav>
+
 <div class="wrap">
 
   <div class="topbar">
@@ -830,5 +1038,70 @@ T(\text{current} - C) - T(\text{previous} - C) & \text{if } \text{current} > \te
 
 </div>
 <script src="paper-assets/replay-widget.js" defer></script>
+<script>
+(function () {
+  "use strict";
+  var fill = document.querySelector("#progressbar .fill");
+  var sectionbar = document.getElementById("sectionbar");
+  var sbCurrent = document.getElementById("sb-current");
+  var tocPanel = document.getElementById("tocpanel");
+  var backdrop = document.getElementById("tocbackdrop");
+  var openBtn = document.getElementById("sb-toc-btn");
+  var closeBtn = document.getElementById("toc-close");
+
+  // Sections = every h2 with an id, in document order.
+  var headers = Array.prototype.slice.call(document.querySelectorAll(".paper h2[id]"));
+  var links = Array.prototype.slice.call(document.querySelectorAll(".toc-link"));
+
+  function openToc() {
+    tocPanel.classList.add("open");
+    backdrop.classList.add("open");
+  }
+  function closeToc() {
+    tocPanel.classList.remove("open");
+    backdrop.classList.remove("open");
+  }
+  openBtn.addEventListener("click", openToc);
+  closeBtn.addEventListener("click", closeToc);
+  backdrop.addEventListener("click", closeToc);
+  links.forEach(function (l) { l.addEventListener("click", closeToc); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeToc();
+  });
+
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var y = window.scrollY || doc.scrollTop;
+    fill.style.width = (max > 0 ? Math.min(100, (y / max) * 100) : 0) + "%";
+
+    // Show the bar once the masthead is out of view.
+    sectionbar.classList.toggle("visible", y > 420);
+
+    // Scrollspy: last header above the reading line.
+    var current = null;
+    var line = y + Math.min(200, window.innerHeight * 0.25);
+    for (var i = 0; i < headers.length; i++) {
+      if (headers[i].offsetTop <= line) current = headers[i];
+      else break;
+    }
+    var id = current ? current.id : null;
+    links.forEach(function (l) {
+      l.classList.toggle("active", l.getAttribute("data-target") === id);
+    });
+    if (current) sbCurrent.textContent = current.textContent;
+  }
+  window.addEventListener("scroll", function () {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+})();
+</script>
 </body>
 </html>
