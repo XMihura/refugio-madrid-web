@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Speedrunning as a model of progress — REFUGIO Madrid 2026</title>
+<meta name="description" content="A field report on collective human–AI search from the REFUGIO Madrid 2026 hackathon. With interactive replays of the event's key submissions." />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<meta property="og:title" content="Speedrunning as a model of progress" />
+<meta property="og:description" content="A field report on collective human–AI search from the REFUGIO Madrid 2026 hackathon. With interactive replays." />
+<meta property="og:image" content="https://refugiomadrid.com/og-image.png?v=2" />
+<meta property="og:url" content="https://refugiomadrid.com/paper.html" />
+<meta property="og:type" content="article" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Speedrunning as a model of progress" />
+<meta name="twitter:description" content="A field report on collective human–AI search from the REFUGIO Madrid 2026 hackathon." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Archivo+Black&display=swap" rel="stylesheet" />
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    macros: { code: ["\\mathtt{#1}", 1] }
+  },
+  chtml: { scale: 0.96 }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" defer></script>
+
+<style>
+:root {
+  --cream: #f1e6c8;
+  --ink: #0e0e0e;
+  --red: #cc3a2c;
+  --yellow: #f1b91e;
+  --blue: #2362ab;
+  --gray: #6b6357;
+  --rule: 3px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--ink); }
+a:hover { background: var(--yellow); }
+::selection { background: var(--yellow); color: var(--ink); }
+
+.wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 28px 28px 96px;
+  border-left: var(--rule) solid var(--ink);
+  border-right: var(--rule) solid var(--ink);
+  background: var(--cream);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: var(--rule) solid var(--ink);
+  padding-bottom: 14px;
+  margin-bottom: 42px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.topbar b { font-family: "Archivo Black", sans-serif; letter-spacing: 0.05em; }
+.topbar a { border-bottom-width: 0; }
+.topbar a:hover { background: var(--yellow); }
+
+.masthead { margin-bottom: 20px; }
+.masthead .kicker {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.masthead h1 {
+  font-family: "Archivo Black", sans-serif;
+  font-size: clamp(34px, 6vw, 58px);
+  line-height: 1.02;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
+.masthead .subtitle {
+  font-size: clamp(18px, 2.6vw, 23px);
+  font-weight: 500;
+  line-height: 1.3;
+  margin-bottom: 22px;
+}
+.byline {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 13.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gray);
+  border-top: var(--rule) solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: 10px 0;
+  margin-bottom: 30px;
+}
+.byline b { color: var(--ink); }
+
+.abstract {
+  border: var(--rule) solid var(--ink);
+  padding: 22px 24px 16px;
+  margin: 0 0 44px;
+  background: #f6eeda;
+}
+.abstract .abs-label {
+  font-family: "Archivo Black", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.abstract p { font-size: 15.5px; color: #3a352c; margin-bottom: 10px; }
+
+.paper h2 {
+  font-family: "Archivo Black", sans-serif;
+  font-size: clamp(23px, 3.4vw, 30px);
+  text-transform: uppercase;
+  line-height: 1.08;
+  margin: 60px 0 18px;
+  padding-top: 18px;
+  border-top: var(--rule) solid var(--ink);
+}
+.paper h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 34px 0 12px;
+}
+.paper h4 {
+  font-size: 17px;
+  font-weight: 700;
+  font-style: italic;
+  margin: 26px 0 10px;
+}
+.paper p { margin-bottom: 14px; }
+.paper ul, .paper ol { margin: 0 0 16px 24px; }
+.paper li { margin-bottom: 7px; }
+.paper li p { margin-bottom: 7px; }
+.paper blockquote {
+  border-left: var(--rule) solid var(--ink);
+  padding: 6px 0 6px 18px;
+  margin: 0 0 16px;
+  color: #3a352c;
+}
+.paper code {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  background: #e9dcba;
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+.paper pre.codeblock {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 16px 18px;
+  overflow-x: auto;
+  margin: 0 0 18px;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.paper pre.codeblock code { background: none; color: inherit; padding: 0; font-size: inherit; }
+
+.paper .runin { display: inline; }
+.paper .center-block { text-align: center; margin-bottom: 16px; }
+.paper .center-block p { margin-bottom: 8px; }
+.paper .mini-block { margin-bottom: 22px; }
+.paper .fig-note { font-size: 14px; color: var(--gray); margin: 6px 0 14px; }
+.paper .rulebox {
+  border: var(--rule) solid var(--ink);
+  background: #f6eeda;
+  font-weight: 700;
+  text-align: center;
+  padding: 16px 20px;
+  margin: 18px auto 18px;
+  max-width: 620px;
+}
+.paper .math-display { overflow-x: auto; margin: 0 0 16px; }
+.paper table.paper-table {
+  border-collapse: collapse;
+  margin: 0 auto 18px;
+  font-size: 15px;
+}
+.paper table.paper-table th, .paper table.paper-table td {
+  border: 1px solid var(--ink);
+  padding: 6px 12px;
+  text-align: left;
+}
+.paper table.paper-table th { background: var(--ink); color: var(--cream); }
+
+figure.paper-fig { margin: 26px 0 30px; }
+figure.paper-fig img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: var(--rule) solid var(--ink);
+  background: #fff;
+}
+figure.paper-fig figcaption {
+  font-size: 14px;
+  color: var(--gray);
+  margin-top: 10px;
+  line-height: 1.45;
+}
+figure.paper-fig figcaption strong { color: var(--ink); }
+figure.paper-fig.plain img { border-width: 1px; }
+
+a.cite, a.xref { border-bottom: 1px dotted var(--ink); }
+ul.references { list-style: none; margin: 0; }
+ul.references li {
+  margin: 0 0 12px;
+  padding-left: 20px;
+  text-indent: -20px;
+  font-size: 15px;
+}
+
+/* ---------- replay widget ---------- */
+.replay-embed {
+  border: var(--rule) solid var(--ink);
+  background: #101010;
+  margin: 26px 0 32px;
+  padding: 0;
+}
+.rw-poster {
+  padding: 34px 26px 30px;
+  text-align: center;
+  color: var(--cream);
+  background:
+    repeating-linear-gradient(45deg, #171717 0 14px, #101010 14px 28px);
+}
+.rw-poster-title {
+  font-family: "Archivo Black", sans-serif;
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+.rw-poster-note { font-size: 14px; color: #cfc4a4; margin-bottom: 18px; }
+.rw-poster-hint { font-size: 12px; color: #8d846c; margin-top: 14px; }
+.rw-btn {
+  font-family: "Archivo Black", sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--yellow);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  padding: 10px 22px;
+  cursor: pointer;
+}
+.rw-btn:hover { background: var(--cream); }
+.rw-btn:disabled { opacity: 0.6; cursor: wait; }
+.replay-embed.rw-loaded { background: var(--cream); }
+.rw-stage { background: var(--cream); padding: 10px 10px 0; }
+.rw-canvas { display: block; width: 100%; height: auto; }
+.rw-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-top: var(--rule) solid var(--ink);
+  background: var(--cream);
+  flex-wrap: wrap;
+}
+.rw-play { min-width: 86px; padding: 8px 12px; font-size: 12px; }
+.rw-slider { flex: 1 1 180px; accent-color: var(--red); min-width: 120px; }
+.rw-readout {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+.rw-speeds { display: flex; gap: 4px; }
+.rw-speed { padding: 6px 9px; font-size: 11px; background: var(--cream); }
+.rw-speed.rw-active { background: var(--ink); color: var(--cream); }
+
+.endmatter {
+  margin-top: 70px;
+  border-top: var(--rule) solid var(--ink);
+  padding-top: 20px;
+  font-size: 14px;
+  color: var(--gray);
+}
+.endmatter a { color: var(--ink); }
+
+@media (max-width: 640px) {
+  .wrap { padding: 18px 16px 72px; border-width: 2px; }
+  html, body { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <b><a href="index.html">REFUGIO</a></b>
+    <span>Madrid &middot; 27 June 2026</span>
+    <span><a href="https://github.com/XMihura/refugio-warehouse-kit" target="_blank" rel="noopener">Code &amp; seeds</a></span>
+  </div>
+
+  <header class="masthead">
+    <div class="kicker">Whitepaper &middot; Field report</div>
+    <h1>Speedrunning as a model of progress</h1>
+    <div class="subtitle">A field report on collective human&ndash;AI search from the REFUGIO Madrid 2026 hackathon</div>
+    <div class="byline">
+      <span><b>Mihura</b> (@XMihura)</span>
+      <span>REFUGIO, Madrid</span>
+      <span>June 2026 &middot; report dated July 2026</span>
+      <span><a href="whitepaper.pdf">PDF version</a></span>
+    </div>
+  </header>
+
+  <section class="abstract">
+    <div class="abs-label">Abstract</div>
+    <p>Can a room of humans augmented by AI outperform the best autonomous LLM agents solving an optimization task? To find out, I organized REFUGIO: a four-hour hackathon where sixteen teams tackled a novel routing problem.</p>
+<p>The incentives were engineered to draw inspiration from the speedrunning community: points were awarded only for breaking the global highest score, and every record-breaking algorithm was instantly open-sourced to the room. The result was a fast pace of collective discovery, as teams chained together paradigm shifts and shared exploits to drive the frontier from 100 to 1,008 deliveries.</p>
+<p>Later, independent agents based on the SOTA models available during the hackathon (including GPT 5.5, Opus 4.8 and Gemini 3.1 Pro) were instructed to solve the problem. Lacking human input and the ability to share discoveries, they fell into local optima, and were outperformed by the humans equipped with AI tools. While Fable 5 was not available at the time of the event, later testing showed that although it came very close, it was not able to outperform the humans under the given compute budget. This document provides a complete technical report of the hackathon and proposes that the future of progress lies in engineering collective search: building institutions that pair the diverse priors of human researchers with the cheap and fast execution of AI agents.</p>
+
+  </section>
+
+  <main class="paper">
+    <h2 id="sec-1">1. Introduction</h2>
+<p>I believe technology is at an inflection point. Artificial intelligence is opening a historic window of opportunity: it is going to displace entire sectors, create new vacuums of power, and redistribute an enormous amount of economic value. But more importantly, it is going to revolutionize the way we discover new knowledge and accelerate the pace of progress. This means that the present moment is critical, carrying an immense opportunity cost for inaction.</p>
+<p>REFUGIO was my small attempt to act within the reach of my capacity and ability on my hometown community. On a Saturday at the end of June 2026, I gathered 48 people in a room in Madrid. I had selected them by hand from over 330 applications: physicists, mathematicians, engineers, developers. In general, smart people with a visible itch to act and build.</p>
+<p>The event was called REFUGIO, and on the surface it was mainly a networking event. The objective was to gather the best technical talent in and around Madrid in a single room and put them to work in a hard problem with AI agents. Once the technical part was over, I opened the doors to founders, investors, recruiters and researchers so that talent and opportunity could collide. It worked well beyond my expectations. I have written my reflections on the event and on the state of the Madrid ecosystem in <a href="https://x.com/XMihura/status/2073056292009062576?s=20" target="_blank" rel="noopener">a separate post</a>, and I will not repeat them here.</p>
+<p><figure class="paper-fig" id="fig-1"><img loading="lazy" src="paper-assets/figures/fig0_hackathon_room.png" alt="Figure 1"><figcaption><strong>Figure 1.</strong> The room during the hackathon: 16 teams of three, each working with AI coding agents on the same problem.</figcaption></figure></p>
+<p>This document is about the technical challenge. The centerpiece of REFUGIO was a four-hour hackathon that I designed as an experiment on a question I care deeply about: how do you engineer a population of humans and AI agents so that, together, they solve a hard task in record time? The hackathon was built as a toy example of the structure I lay down in the next section: every team worked with commercial AI coding agents on an optimization problem nobody had seen before that morning, a submission earned points only if it beat the all-time best score, and the complete source of every scored submission was published to all rivals the moment it was evaluated.</p>
+<p>I am writing this document for two reasons. The first is to leave a public record of what I did so that others can learn from it and replicate it in their own local communities. The second is to report the results of the experiment, including what happened when, after the event, I handed the exact same problem to six frontier coding agents running fully autonomously, with no humans in the room at all.</p>
+<p>Before entering into the technical material, I want to spend some pages on the worldview that motivated the experiment. The next section is an essay on how progress happens and why I believe the coming era of AI agents forces us to rethink the institutions that produce discoveries. It can be read on its own, and it explains why the hackathon rules were what they were. Readers who only care about the event itself can jump ahead to <a class="xref" href="#sec-3">Section 3</a>.</p>
+<h2 id="sec-2">2. A new era of progress</h2>
+<p>I would like to describe an engineering problem on which I believe the pace of discovery is about to depend. The advent of increasingly autonomous AI agents built on large language models is making it possible to build systems that can propose, implement, run and evaluate the outcome of experiments without human intervention. This is now possible in domains free of physical bottlenecks like mathematics and computer science, fields that are experiencing a fundamental shift in how research is conducted (<a class="cite" href="#ref-trinh2024solving">Trinh et al., 2024</a>; <a class="cite" href="#ref-alphaproof2025olympiad">Hubert, 2025</a>; <a class="cite" href="#ref-openai2025imo">OpenAI, 2025</a>; <a class="cite" href="#ref-deepmind2025gemini">DeepMind, 2025</a>). As automation and robotics advance, this shift will sooner or later reach other fields of science and technology. This will likely unlock an unprecedented acceleration of progress across many domains. To ensure this acceleration happens, we must sit down and study the mechanisms of progress and use them to carefully design the institutions that will govern this new era of research.</p>
+<p>First, let me establish what I mean by progress. Progress must always be defined in relation to a specific task, coupled with a metric we aim to optimize. Without a quantifiable pair of goal and metric, progress becomes little more than a buzzword. For the purposes of this essay, I define progress as the discovery of a new solution or configuration that strictly improves upon the best previously recorded performance for a given task, according to its designated metric.</p>
+<p>Progress can therefore be understood as process of search: to advance the state of the art of a task is to find a solution for it that beats every candidate found before. To accelerate progress we must therefore increase the efficiency of search.</p>
+<p>Discussions around optimization and search usually focus on specific tools and algorithms, but they rarely explore the bigger picture of how progress actually happens when you have generally intelligent agents working together. My goal in this section is to present a global perspective on how progress actually happens, with the hope that these mechanisms can be instrumentalized to accelerate discovery in targeted domains, similar to how game theory can be used to design system rules that incentivize desired outcomes.</p>
+<p>For it, let me introduce you to the YouTube channel <a href="https://www.youtube.com/@SummoningSalt" target="_blank" rel="noopener">Summoning Salt</a>, which documents the history of world records in speedrunning videogames.</p>
+<p>For readers unfamiliar with the term, speedrunning is the practice of completing a video game from start to finish as fast as possible with the intention of setting a record for the shortest completion time. Communities of players from around the world compete for the best time in all sorts of games, ranging from classic arcade titles to modern releases. These gamers, rather than playing the game for leisure or following the intended story, meticulously analyze the game's software to find the absolute shortest path to the end, often discovering unintended glitches, mathematical quirks, and highly optimized strategies to shave fractions of a second off their completion times.</p>
+<p>Summoning Salt's videos carefully trace the evolution of world records in various videogames, highlighting the strategies and techniques employed by different players. It details how these strategies were discovered, refined and propagated throughout the community and how they evolved over time.</p>
+<p>I think these videos offer an exceptional global picture of how progress happens for a complex task in a global environment with multiple optimizing agents. I recommend the reader to watch at least one of them after reading this document to fully grasp the idea I want to convey here. I find this picture extraordinarily useful to reason about the problem of accelerating discovery in science and technology.</p>
+<h3 id="sec-2-1">2.1 Speedrunning as a model of progress</h3>
+<p>It is known that no search algorithm universally outperforms any other across all possible problems (<a class="cite" href="#ref-wolpert1997nofreelunch">Wolpert and Macready, 1997</a>). This means that any algorithmic advantage must come from exploiting a problem's underlying structure. For complex tasks, this process relies on generally intelligent agents leveraging prior knowledge and tool-building, and involves competition and collective communication. Speedrunning provides an excellent lens through which to observe these dynamics. Let's talk about some of the key elements that I believe are essential for understanding how progress happens:</p>
+<h4 id="sec-2-6-1">2.6.1 Exploration of the search space</h4>
+<p>For a given optimization task, the search space is the set of all possible solutions. Every point in this space corresponds to a potential answer, with its own associated cost or performance metric, and the fundamental goal of progress is to navigate this vast landscape to find the optimal solution. Basic methods approach this exploration mathematically: if the cost function is differentiable, they use gradient descent to iteratively update parameters along the negative gradient; if the environment is modeled as a Markov Decision Process, they use reinforcement learning techniques like policy gradients to optimize expected returns. However, these methods do not scale well for highly complex search spaces characterized by sparse rewards and non-convex topologies as they suffer from high variance in long-horizon credit assignment and inevitably collapse into local optima.</p>
+<p>In speedrunning, the search space is the set of all possible ways to complete the game. For most games, this is an extremely vast set. How do players explore this space? How do they find extremely clever and complicated ways to reduce their time? It's obviously more than just random trial and error. For example, in the video <a href="https://www.youtube.com/watch?v=NscWoJVrEfw" target="_blank" rel="noopener"><em>The History of Wii Sports World Records</em></a>, players discovered that by removing the battery from the Wii remote, they could hit the ball for a second time in the game of Golf, which allowed them to shave seconds by crossing a lake. Another example, is the "Backward Long Jump" in <em>Super Mario 64</em>, where players realized that the game fails to cap negative speed. By repeatedly long-jumping backward against certain stairs, Mario's speed accumulates exponentially, allowing players to bypass barriers like the endless stairs that normally require gathering most of the game's collectibles. Like many of the shortcuts that speedrunners discover, it is fundamentally impossible to find these by random exploration. The reason for this is simple: the number of possible action sequences grows exponentially with the length of the chain, leading to a combinatorial explosion. Discovering them requires the precise concatenation of highly specific, rare events chained together to exploit the game's underlying logical structure. Finding these sequences demands a deep understanding of the underlying mechanics and the ability to reason about the consequences of unseen sequences of actions.</p>
+<h4 id="sec-2-6-2">2.6.2 Generally intelligent agents</h4>
+<p>Unlike a vanilla Reinforcement Learning agent that starts as a blank slate with random parameters, speedrunners bring pre-existing knowledge to the problem. This intelligence is the product of two main processes: millions of years of human evolution shaping the brain, and a lifetime of interacting with the world. This rich background allows them to quickly construct mental models of a game, generalizing from past experiences to predict the consequences of their actions without exhaustive trial and error.</p>
+<p>For example, consider the classic videogame <em>Montezuma's Revenge</em>. A child playing it for the first time will intuitively recognize that the pixelated ladders can be used to navigate between levels before even trying them. They successfully map real-world ladder properties to the game because they share with the game's developers a common understanding of the concept of a ladder and its representation. In contrast, a blank-slate RL agent lacks this worldly context and cannot infer the ladder's function from pixels alone without prior exploration. This example illustrates how prior knowledge can significantly accelerate the exploration of the search space.</p>
+<p><figure class="paper-fig" id="fig-2"><img loading="lazy" src="paper-assets/figures/fig_montezuma.png" alt="Figure 2"><figcaption><strong>Figure 2.</strong> A room from <em>Montezuma's Revenge</em>. Humans immediately read the ladders, rope, key, and skull as functional objects; a blank-slate RL agent sees only pixels until it explores.</figcaption></figure></p>
+<h4 id="sec-2-6-3">2.6.3 Competition and optimization</h4>
+<p>Speedrunners generally compete among themselves to get the best time, typically improving until they reach the world record, at which point they tend to become complacent and stop improving unless a competitor threatens their record. Competition acts as a powerful force that pushes humans beyond their perceived limits; knowing that rivals are striving for the exact same goal forces individuals to optimize and innovate just to stay relevant. This behavior is driven by an underlying structure of <em>incentives</em>. In speedrunning, the primary incentive is often intrinsic and social, such as honor, recognition, and status within the community, which is sometimes linked to external incentives like monetary rewards in the form of donations or sponsorships. This competition plays a non-trivial role in accelerating progress because it pushes the players to explore the search space more thoroughly.</p>
+<h4 id="sec-2-6-4">2.6.4 Communication and collaboration</h4>
+<p>Speedrunners must provide a video of their play-through to validate their records. The community then reviews this video to confirm the record's legitimacy. This process is essential for accelerating progress because it acts as an enabling mechanism for global search: general agents navigate a small subset of the search space, but the information is shared with every competitor each time someone claims a record. By requiring speedrunners to share their strategies in detail for verification, it enables other speedrunners to learn and build upon this knowledge. This dynamic closely mirrors the principles of open science (<a class="cite" href="#ref-nielsen2011reinventing">Nielsen, 2011</a>), where the transparent sharing of data and methodologies is promoted to accelerate collective discovery. However, this level of openness isn't always present in many fields; private companies often withhold details about their technology (for instance, AI labs not disclosing their research results), whether to protect a competitive advantage or out of safety concerns. This secrecy can slow the collective progress of the field, but the trade-offs are not clear-cut: one could argue that defending proprietary information is exactly what makes some business models sustainable enough to fund the research in the first place. It's complicated.</p>
+<h4 id="sec-2-6-5">2.6.5 Tools and infrastructure</h4>
+<p>Speedrunners use and develop tools to help them improve their performance: software to record and analyze their play-throughs frame by frame, and to dissect the game's code in search of glitches and exploits. This is similar to what happens in traditional scientific domains, where the development of specialized instruments and platforms like microscopes and particle accelerators dramatically expands the accessible boundaries of a field. This cumulative process of developing tools and infrastructure is essential for progress, since it allows agents to explore the search space more efficiently.</p>
+<p>In short, speedrunning demonstrates how a community of intelligent agents can effectively explore overwhelmingly complex search spaces.</p>
+<p>If we want to accelerate scientific discovery, we can take these elements as inspiration to engineer our research institutions.</p>
+<p>Let us now examine in greater detail why this collective approach to problem-solving works.</p>
+<h3 id="sec-2-2">2.2 The structure of search spaces</h3>
+<p>One key question that arises is the following: why is exploration by intelligent agents so much more effective than other methods of search? To understand why, we must first take a look at the structure of search spaces.</p>
+<p>I say that a search space has <em>structure</em> with respect to a performance metric when the score of one candidate carries information about the scores of others. More formally, when observations of evaluated candidates have nonzero mutual information with the performances of unevaluated ones. In a space with no exploitable structure, the performance of candidates that have already been evaluated tell nothing about the performance of the ones that have not. In that case, no method can do better in expectation than random search. With this fact in mind, every clever search method is therefore a bet on the existence of some particular structure in the search space.
+The good news is that the search spaces of most complex tasks tend to be structured: under an appropriate representation, good solutions often have good neighbors. This structure arises partly from two factors:</p>
+<ul>
+<li><strong>Compositionality:</strong> Complex solutions can normally be decomposed into parts that can be improved somewhat independently, so that a small edit to a strong candidate preserves much of what made it strong.
+</li>
+<li><strong>Robustness:</strong> A strategy for a sufficiently complex real-world task usually needs to tolerate small perturbations for it to work at all. For example, if you are searching the space of configurations for a robotic walking strategy, a slight variation in the torque of one joint should not immediately cause the robot to fall; otherwise, the strategy would be useless outside a perfectly controlled environment. This &rdquo;play&rdquo; in the solution space is partly what makes robust strategies findable. Robust, near-optimal solutions tend to occupy larger regions of the space and have larger basins of attraction under a given search process than solutions that work only under exact conditions. A configuration that succeeds only at a single isolated point is unlikely to be discovered or retained by a search process that exploits the local structure.
+</li>
+</ul>
+<p>There is also a more general reason to expect structure. Complex search spaces are typically generated by compact mechanisms: physical laws, software rules, or other generative processes that are smaller than the spaces they produce. These mechanisms produce recurring patterns and regularities that can be exploited by inductive methods. This is also why the no-free-lunch theorem doesn't matter in practice. Real problems are not drawn uniformly from the set of all possible objective functions, but from a highly restricted subset that is the image of these compact generative mechanisms.</p>
+<p>By a <em>compact mechanism</em>, I mean a set of generating rules that can be described with relatively little information, that is, one with low Kolmogorov complexity, but that is capable of producing an enormously complex and expansive set of outcomes. For example, in the game of Go the rules can be written on a few pages, but they generate a decision tree so vast that the number of possible games exceeds the number of atoms in the observable universe. When a massive search space is generated by concise rules, the individual states are defined by the underlying mechanism, which may produce recurring patterns, symmetries, and structural regularities throughout the space that can be exploited by inductive methods.</p>
+<p>Since most of the rules generating the world we interact with are relatively compact, a searcher may reasonably rely on the principle of parsimony, also known as Occam's razor, formalized by Solomonoff (<a class="cite" href="#ref-solomonoff1964formal">Solomonoff, 1964</a>): simpler explanations should be assigned greater prior weight. A corollary from this is that if we observe a pattern observed in a small region of the search space, it is likely evidence of an underlying rule that extends to unexplored areas, rather than a coincidence.</p>
+<p>It does not mean that every local regularity must extend globally, since compact mechanisms may contain discontinuities, chaotic behavior, or pseudorandom components. And also, compactness alone does not guarantee that a search space will be smooth. However, it justifies a strong prior that observed patterns are evidence of an underlying rule that continues to hold in unexplored regions of the space. This is, in essence, why inductive inference tends to work.</p>
+<p>It is also the foundational assumption of <em>local</em> search methods. Algorithms like hill climbing, gradient descent, and evolutionary methods all bet that a candidate's current properties provide useful information about its neighbors. Ultimately, every effective search method succeeds only when its particular inductive bias aligns with the underlying structure of the space it explores.</p>
+<p>The priors that a general agent brings to a new task are bets of the same kind, made at a higher level of abstraction. For example, the child recognizing the ladders in <em>Montezuma's Revenge</em> and the speedrunner reasoning about the physics of the Wii sports game are both projecting learned patterns and trusting, correctly, that the world is simple enough for those patterns to hold.</p>
+<p>In short, generally intelligent agents work because they rarely explore complex search spaces from scratch. They come equipped with a vast repertoire of highly calibrated priors acquired from interacting with a world governed by compact rules. When faced with a new problem, they project these internalized models to efficiently navigate the search space, instinctively discarding unpromising regions and focusing their effort in the promising regions.</p>
+<h3 id="sec-2-3">2.3 Global search</h3>
+<p>Local search often gets trapped in a local optimum&mdash;a solution better than its immediate neighbors but worse than others further away. Once stuck, exploring the same area does not help. The solution is employing <em>global</em> search techniques. While not the only way to perform global search, one effective approach is launch multiple excursions exploring different regions and exchanging discoveries to get a full picture of the optimization landscape. In Speedrunning, the verification rule implements exactly this: players explore their own small neighborhoods, but because records must be submitted with a video recording of the gameplay, every major discovery is shared with the rest of searching agents. The whole community then restarts its search from the new frontier.</p>
+<p>Notice that the performance of a global search rests on two resources that trade off but do not substitute for one another. One is the strength and speed of each local searcher, encompassing both the resources allocated to explore a given area and the specific strategies used to navigate that local landscape. The other is the diversity of the population's proposal distributions, how differently each search expedition frames the problem and what area of the solution space aims to explore. Under a fixed budget these two compete for resources, but both are necessary.</p>
+<p>This tradeoff will become extremely relevant in a world where compute is going to be a resource to exchange for knowledge. We must therefore think about this problem and design strategies that can navigate the tradeoff efficiently.</p>
+<h3 id="sec-2-4">2.4 General search models</h3>
+<p>Large language models have transformed the first of these resources beyond recognition. They are the first artificial systems that approximate what I would call a <em>general search model</em>: trained on vast corpora of code, mathematics, and natural language, they have internalized the structural regularities of countless domains, and when they face a new search space they make the same inductive bet as the child with the ladders.</p>
+<p>And because they are exceptionally good at code, they can now run experiments autonomously. An idea can become a tested implementation in minutes and in general, implementation details do not hinder the experiments. Modern capable coding agents can propose, edit, execute, and evaluate variants in a tight loop for as long as we care to run it. It is tempting to extend the bitter lesson (<a class="cite" href="#ref-sutton2019bitter">Sutton, 2019</a>) and conclude that discovery will now scale with compute alone.</p>
+<p>But we are not there yet. A LLM defines a single conditional distribution over its outputs. Because every sample is drawn from the same weights, querying the model a thousand times simply yields a thousand samples from the same distribution. Furthermore, their pre-training objective fundamentally drives them to minimize surprise so they naturally gravitate toward the most expected and consensus-driven paths instead of highly novel directions.</p>
+<p>One might say, the solution is just to vary the prompts, raise the temperature, or seed each copy differently. These are indeed the standard techniques employed today (<a class="cite" href="#ref-holtzman2020curious">Holtzman et al., 2020</a>; <a class="cite" href="#ref-wang2023selfconsistency">Wang et al., 2023</a>; <a class="cite" href="#ref-brown2024monkeys">Brown et al., 2024</a>). However, such methods just decorrelate token trajectories by chance, rather than guiding variations through distinct underlying abstractions or mental models (sometimes we call those "intuition") that humans have. Furthermore, these internal abstractions vary significantly across different individuals which provides a natural source of decorrelation.</p>
+<p>Swapping in different language models also does not fully solve this. Because they are trained on highly overlapping corpora, different models tend to converge to the same basins of attraction and share similar biases, making them generally unoriginal. While recent post-training techniques are somewhat increasing model specialization, and thus making it increasingly interesting to use an ensemble of different models to probe the search space, they still largely draw from the same underlying consensus. One hundred copies of one LLM based agent exploring a search space, or even a mix of agents, is like shining a hundred flashlights in the same direction while the rest of the room remains in darkness.</p>
+<p>Nonetheless, it is undeniable that individual models are improving fast. General-purpose reasoning models are now producing verified proofs of long-open problems. The most striking example to date is the recent disproof of the unit-distance conjecture (<a class="cite" href="#ref-openai2026unitdistance">OpenAI, 2026</a>; <a class="cite" href="#ref-alon2026remarks">Alon et al., 2026</a>), a question posed in 1946 by the prolific Hungarian mathematician Paul Erd&#337;s. For eighty years, mathematicians&mdash;including Erd&#337;s himself&mdash;believed that grid-like patterns were the best possible answer. The AI proved them wrong by finding new arrangements of points that worked better. The AI succeeded because it could connect ideas from completely different areas of math&mdash;using complex number theory to solve a geometry problem&mdash;and because it could quickly crunch through possibilities that a human wouldn't have the time or patience to check. However, Timothy Gowers, a Fields Medalist who reviewed the proof, estimated that the argument, measured by how many hints an expert would have needed to reconstruct it, was in fact fairly short and thus attainable for an LLM. Most of its surprise lay in a single insight: <em>looking for a counterexample</em>, a direction that the mathematics community had incorrectly assumed would not work.</p>
+<p>It still remains unclear whether these LLM based agents can tackle open problems that require composing many insights. Gowers's intuition is that a proof for a related distinct-distances problem like solved by mathematicians Larry Guth and Nets Hawk Katz, which was built from several surprising ideas with non-obvious connections, would have needed a much longer hint sequence and thus would have been much more difficult for an LLM to find. Nonetheless, the example is a clear demonstration of the potential of general search models to accelerate discovery.</p>
+<p>So, how do we address these pitfalls? We need an ecosystem of searchers with diverse, highly calibrated priors. In a seasoned researcher, we call these priors taste or intuition: a deeply internalized map of the search space, forged through years of distinct successes and failures, that instinctively concentrates attention on regions likely to yield results. What makes this intuition indispensable to collective search is that it is both effective <em>and</em> statistically uncorrelated with the intuition of peers. This decorrelation comes out naturally because every human researcher possesses a unique trajectory, shaped by different educational backgrounds, localized knowledge, and idiosyncratic personal experiences that causes them to frame problems differently and explore distinct areas of the search space.</p>
+<p>This explains why groups of diverse problem solvers consistently outperform homogenous teams of high performers, as the latter tend to share the same heuristics and blind spots (<a class="cite" href="#ref-hong2004diverse">Hong and Page, 2004</a>). This dynamic has been demonstrated in recent empirical studies: even though model-generated research ideas often appear highly novel, their viability collapses during execution, whereas human ideas tend to retain their value (<a class="cite" href="#ref-si2025can">Si et al., 2025</a>; <a class="cite" href="#ref-si2025ideation">Si et al., 2025</a>).</p>
+<p>My guess is that for the next few years, the most effective research organization will be a combination of humans and AIs. Autonomous LLM based agents will supply rapid and cheap implementation of ideas, while human researchers will provide diverse intuition by steering the search and selecting the most promising directions.</p>
+<h3 id="sec-2-5">2.5 Engineering collective search</h3>
+<p>If we want this hybrid fleet of human and AI searchers to accelerate discovery, we need to redesign our research institutions and their incentive structures. The academic world needs to adapt to the new reality.</p>
+<p>Historically, the fact of writing a scientific paper acted as proof of work that correlated, however imperfectly, with real research effort. Today, as language models can generate plausible documents, that signal has disappeared. We should not discard all LLM-generated ideas, since some might be genuinely good. But the sheer ease of production threatens to drastically decrease the signal-to-noise ratio, flooding the literature with AI-generated slop. We need, urgently, faster and better methods of verification and replication. The traditional peer review system is strained under the increasing volume and choked by slow reviewing cycles. These will not be compatible with the upcoming rate of discovery. Citations as measure of impact, like any imperfect proxy under sustained optimization pressure, has become easily gameable (<a class="cite" href="#ref-manheim2018categorizing">Manheim and Garrabrant, 2018</a>).</p>
+<p>To adapt, we must measure scientific contributions through verifiable artifacts rather than static text documents. This requires building platforms that enforce strict evaluation and standardize how discoveries are shared. Just as speedrunners submit raw video evidence to centralized leaderboards, researchers need to be incentivized to submit reproducible datasets, detailed experimental protocols, and executable code to public repositories where their claims can be systematically verified. This is increasingly possible because AI tools are making this tedious task significantly cheaper.</p>
+<p>However, we must acknowledge that a tight evaluation loop is currently feasible only in fields like mathematics and computer science. In the physical sciences, experiments are typically costly, time-consuming, and notoriously difficult to reproduce. To close this gap, we must develop standardized physical interfaces, autonomous laboratories, and verification protocols.</p>
+<p>I do not want to attempt to provide recipes here, because engineering these solutions is a highly complex task that will inevitably be field-dependent. However, I want to support and spark discussion around this topic, because I believe addressing it is an urgent necessity.</p>
+<h3 id="sec-2-6">2.6 Conclusion</h3>
+<p>The rapid proliferation of LLM based research agents presents an opportunity to accelerate scientific and technological progress. However, realizing this potential requires us to conceptualize progress fundamentally as a process of search over complex and structured spaces.</p>
+<p>While AI agents are quickly mastering the mechanics of local search and execution in certain domains, we are not yet at a point where they can replace the intuition of human experts. Relying on them exclusively will not be feasible for the foreseeable future.</p>
+<p>We are therefore entering a transitional era. For the foreseeable future, progress will depend on this hybrid approach, where human intuition guides the global search while AI agents execute the local exploration. To coordinate this hybrid fleet, we must look beyond our traditional, text-based academic institutions. Drawing inspiration from communities like speedrunners, we need to architect new systems of collective search based on fast, quantifiable artifacts rather relying on slow, easily gameable peer-review cycles. By aligning our incentives toward transparency, verification, and the sharing of reproducible tools, we can build an open scientific ecosystem that is equipped to explore rapidly the vast search spaces of the future.</p>
+<h2 id="sec-3">3. Designing a hackathon in the agentic era</h2>
+<p>The previous section laid out a set of principles about how progress happens. The REFUGIO hackathon was my attempt to compress all of this into a fun four-hour toy experiment. In this section I want to explain the design choices I made, and why they were made.</p>
+<p>First, let me briefly describe the problem of the hackathon. The task for the participants was to program the operating policy for a fleet of robots in a warehouse, as well as design the spatial distribution of the shelves where the robots get their packages. Controlling both the physical layout and the movement of so many robots quickly transforms the task into a complex congestion and Multi-Agent Path Finding (MAPF) problem.</p>
+<p>Specifically, each team programs a robotic warehouse: a <span class="math-inline">\(52\times52\)</span> grid with 96 robots docked on its perimeter and 960 shelves inside. A submission is a single Python file defining two functions: <code>create_layout()</code>, which places the 960 shelves and <code>act()</code>, which decides each robot's move, once per robot per tick. Targets appear on shelves; robots fetch them and deliver at their own base. The raw score is the number of deliveries completed in 300 ticks, summed over three hidden evaluation seeds, under a 180-second compute budget. The complete challenge brief, exactly as participants received it on the submission platform, is reproduced in Appendix&nbsp;<a class="xref" href="#appendix">A</a>.</p>
+<div class="replay-embed" data-src="paper-assets/replays/baseline_starter.json" data-title="The task: the official starter warehouse" data-note="The baseline policy on the starter layout — greedy routing, constant jams. This is what every team started from at 10:00."></div>
+
+<p>Now, let me explain here some of the rationale behind the design decisions. I think this information will be useful for someone trying to organize a similar hackathon.</p>
+<h3 id="sec-3-1">3.1 Visual engagement</h3>
+<p>This was a hackathon, so it needed to be somewhat fun. People gave up a Saturday to be there. I wanted a task where progress could be watched. After a lot of brainstorming, I settled on a robotic warehouse and a multiagent pathfinding problem. Robots moving through a warehouse, jams forming and dissolving... It could be easily visualized. This keeps the room emotionally engaged, and it facilitates the input of the participants' intuition.</p>
+<h3 id="sec-3-2">3.2 A wide and deep search space</h3>
+<p>The task needed to survive four hours of assault by smart people armed with frontier coding agents. That imposes two conditions. It must be deep: hard enough that no model one-shots it, with a ceiling far above anything reachable in an afternoon, so the frontier can keep moving until the final minutes. And it must be wide: rich in qualitatively different approaches, so that decorrelated teams have somewhere different to go, rather than racing down a single obvious path. Following the essay's argument, I built the space from a compact mechanism: a small grid, simple movement rules, a handful of constraints that give rise to a vast search space of strategies. One key design decision was letting the participants control also the warehouse layout. This added two levels of the problem: teams can program the robots and can design the warehouse layout the robots drive through. This helped to ensure that the search space was wide enough for the event.</p>
+<h3 id="sec-3-3">3.3 Compelled disclosure and fast verification</h3>
+<p>Analogously to the speedrunning community, which needs to submit a video of their run to claim a record, the participants of the hackathon needed to submit the source code of their submission to claim a score. The instant a submission is scored, its complete source, score and replay are published to every rival.</p>
+<p>Nobody chooses whether to share or not; validation is publication. The goal is to make the information flow among the searchers as soon as something is discovered, so that the next discovery can be built on top of it. The code submissions were evaluated in a sandbox, on hidden seeds. A 30-minute cooldown was imposed on each team after a scored submission to balance the computation load and avoid teams from spamming the system with many submissions.</p>
+<h3 id="sec-3-4">3.4 Incentive-driven scoring</h3>
+<p>One thing that happens with speedrunners is that they become complacent the moment they hold the record. So I put a lot of thinking into how to calibrate the scoring system correctly making sure that the competition would remain alive at all times. A submission earned points only if it beat the all-time best. This forces people to disclose their best solution as soon as they have it, or they risk letting other teams earn the points.</p>
+<p>To ensure fairness, the credit had to be proportional to contribution, awarded to whoever gets there first. One important caveat is that optimization problems generally suffer from diminishing returns, and this one is no different: finding the first improvements was easy, but squeezing out the last few was much harder. In order to keep the competition alive until the last second, I needed to design the scoring so later, and harder points, are worth more than early ones.</p>
+<p>I chose the following scoring formula. The record starts at a fixed baseline (a nominal 100 for the event), and every delivery above it carries its own bounty: the <span class="math-inline">\(n\)</span>th delivery above the baseline is worth <span class="math-inline">\(n\)</span> points, paid once, to the first team that validates it. A submission that pushes the record from <span class="math-inline">\(F\)</span> to <span class="math-inline">\(D\)</span> claims every unclaimed bounty in between, earning the sum <span class="math-inline">\(F{+}1, F{+}2, \ldots, D\)</span>:</p>
+<div class="math-display">\[\text{Reward} = \sum_{n=F+1}^{D} n\]</div>
+<p>so the reward for moving the frontier grows quadratically with how far you move it. The idea is that this is fair but keeps the momentum alive so anyone can catch up. This was a tough decision because it represents a delicate trade-off: if hope is lost, competitors give up. But if the rule is not fair, competitors might not care at the beginning which can lead to people hoarding their best solutions and not disclosing them. Getting this balance right was tricky and depends a lot on the problem itself. Specifically, in the magnitude of the performance metric, the rate of diminishing returns, the ceiling... I made some estimations and ran trials beforehand, and this was the best formula I could find. I'm glad it worked perfectly in practice, but I also acknowledge that I was lucky, it could have gone wrong.</p>
+<p>In general, this is a hard and subjective design problem. The organizer must decide how to balance fairness and momentum considering the diminishing returns of the problem.</p>
+<h3 id="sec-3-5">3.5 The prize</h3>
+<p>Finally, the points had to be worth something in order for the incentive system to work. The team with the most points at the end of the afternoon won three M4 Mac Minis, one per member, donated by a sponsor. A real but deliberately modest prize, just enough to make the competition feel serious. Although I think the main fuel was the same as it typically is for speedrunners: honor, recognition, and status in a room full of peers.</p>
+<h3 id="sec-3-6">3.6 Hybrid searchers</h3>
+<p>Finally, every team worked through commercial AI coding agents. This was the whole point of the hackathon. A problem with this level of difficulty is impossible to solve in four hours by hand. So in order to be competitive, every team needed to use agents. I managed to get sponsoring from Cursor and Google for tokens, although I did not impose constraints on which agents to use and people could bring their own tokens. This might not have been fair, because some people could and did spend more tokens than others, but at least anyone had a decent chance of being competitive without external spending.</p>
+<h2 id="sec-4">4. The infrastructure</h2>
+<p>In order for the hackathon to work, a platform was needed that could take the untrusted vibe coded Python code of teams of humans and AI agents, execute it safely, score it, and publish the results to all rivals in real time.</p>
+<p>This operational challenge is pretty unusual for a hackathon, particularly because participants were also likely to run this potentially unsafe code on their own PCs.</p>
+<p>The platform had six core requirements:</p>
+<ul>
+<li><strong>Concurrent, isolated execution.</strong> Sixteen teams could submit at any time, with each evaluation taking up to four minutes. A single shared machine wouldn't work. So each submission needed its own temporary execution environment to run concurrently.
+</li>
+<li><strong>Reliable job queuing and recovery.</strong> Submissions had to be claimed atomically to guarantee they were evaluated exactly once.
+</li>
+<li><strong>Secure authentication channel.</strong> Teams needed a secure way to identify themselves when submitting code, using private tokens to track submissions, enforce cooldowns, and prevent impersonation.
+</li>
+<li><strong>Safety without a human in the loop.</strong> Since participants submitted untrusted, AI-generated code at high speed without manual review, screening and containment had to be fully automatic.
+</li>
+<li><strong>Instant, race-free publication.</strong> Scores, source code, and replays had to become public the moment they were validated. Scoring needed to be strictly ordered to resolve near-simultaneous submissions, ensuring that the first job to successfully finish execution is awarded the points.
+</li>
+<li><strong>Zero operations.</strong> Since REFUGIO was essentially a one-person team running the whole event, the platform had to run without anyone babysitting the server.
+</li>
+</ul>
+<p>The rest of this section describes the platform I built to meet these requirements (<a class="xref" href="#fig-3">Figure 3</a>).</p>
+<p>I built the platform as a Next.js application deployed on Vercel, relying on four managed services to do the heavy lifting, each covering one of the requirements above. Supabase Postgres handles the teams, jobs, and the leaderboard; the jobs table doubles as the queue, and claiming a job is a single conditional update that flips it to <em>running</em>, which is what guarantees no submission ever runs twice. Vercel Blob stores all the artifacts (like submitted code and JSON files for results and replays) at stable public URLs, which is what makes publication instant. Each submission triggers a durable Vercel Workflow run that orchestrates its whole evaluation and survives temporary failures, so a crash leaves a resumable record instead of a lost job. Finally, the untrusted code executes inside a Vercel Sandbox, a Firecracker microVM booted on demand, one per submission and destroyed afterwards&mdash;this is what provides concurrent, isolated execution without owning a single server. The simulation engine is a separate, deterministic Python package that acts as the single source of truth. I shipped the exact same engine used for official scoring to the participants in a local development kit, so the participants could test their algorithms locally. The web tier never imports or executes participant code. The TypeScript backend simply stores the file and passes it along to the sandbox.</p>
+<p>In order to verify the identity of the submitter teams, each team was handed privately an authentication token. The token was never stored in plaintext on the server, only as a SHA-256 hash.</p>
+<p>Here is what happens when a submission comes in. A team uploads a single <code>.py</code> file along with their private identification token. The backend checks the file size, ensures the 30-minute cooldown is respected, and verifies the team hasn't hit their failed-attempt limits. Before the code ever touches a CPU, it has to pass two screening steps.</p>
+<p>This step was extremely important for two reasons:</p>
+<ul>
+<li>I wanted to keep the sandbox fair and prevent participants from finding exploits that could destroy the challenge mechanics.
+</li>
+<li>Most importantly, participants were going to be rapidly copying and pasting untrusted Python code.
+</li>
+</ul>
+<p>Even though the event featured a small, high-trust group of people, implementing this two-level filter was essential to handle unpredictable, AI-generated code safely.</p>
+<p>First is a static filter that catches banned imports (like <code>os</code>, <code>socket</code>, or <code>subprocess</code>), blocks <code>eval</code>/<code>exec</code>, and prevents file access or classic Python introspection escapes. Next, an LLM security reviewer using GPT-5.5 via the OpenAI API reads the full source code and returns a structured approve or reject verdict. I gave the reviewer deliberately narrow instructions: reject anything that looks like malware, data exfiltration, or a sandbox escape, but approve strategies without judging how competitive they are. Once approved, a fresh microVM boots from a pre-built snapshot. This environment only contains the challenge engine and five whitelisted libraries. It has exactly two vCPUs, no network access, and a hard 240-second timeout to wrap around the 180-second policy budget. The evaluator then runs three hidden seeds and writes the result and replay files. Once the job completes in the database, the leaderboard updates. At that exact moment, without any human intervention, the submission's full source code, score, and replay are published to every other team.</p>
+<p>The whole point of this infrastructure is making sure that validation needs publication, and that the teams could safely copy and iterate over the best solutions as fast as possible.</p>
+<p>I embraced the following golden rule:</p>
+<div class="center-block">
+<div class="rulebox"><strong>If the code was able to pass the filters and compile, it is considered valid.</strong></div>
+</div>
+<p>This approach inherently allows for exploits, which was considered entirely acceptable. Some of these exploits were even expected and embraced, similar to how glitches and unintended mechanics are leveraged in video game speedrunning. As long as the code did not compromise the infrastructure itself, finding loopholes in the simulation was considered fair game. In fact, several exploits were discovered and utilized during the event (some of them left deliberately, others were unintended), which I will discuss in the results section.</p>
+<p>Ultimately, the specific details of the underlying optimization problem are of secondary importance, provided that all submissions are judged on a fair and equal playing field. The primary takeaway from this set-up was to demonstrate that this optimization method extracts every conceivable drop of performance and optimization in a remarkably short timeframe.</p>
+<p>On the day of the event, the platform handled 93 submissions. 86 of them evaluated cleanly, and 7 were rejected by the screening layers before execution, with zero crashes and zero downtime. The static ruleset caught four submissions on plain violations: disallowed imports and the classic introspection escapes. The LLM reviewer triggered on the other three, and they were exactly the cases a regex cannot see: submissions that imported internal simulator modules and monkey-patched the referee: one to force a favorable seed, one to swap out the target generator by iterating <code>sys.modules</code>, and one to fake its score outright. This proved the second screening layer was essential: score-tampering attempts appeared quickly, and any successful exploit would have ruined the competition. A static filter alone would have missed all three attempts.</p>
+<p><figure class="paper-fig" id="fig-3"><img loading="lazy" src="paper-assets/figures/fig1_infrastructure_detailed.png" alt="Figure 3"><figcaption><strong>Figure 3.</strong> The life of a submission, as one clockwise loop: submitted, screened at the gates, queued, claimed by the orchestrator, run inside the sandbox trust boundary, recorded in the storage layer, published on the frontend&mdash;then the team iterates. The design goal was that untrusted code written at hackathon speed could be run and published safely, every few minutes.</figcaption></figure></p>
+<h2 id="sec-5">5. What happened</h2>
+<p>The evolution of the hackathon can be divided into three clear phases: the discovery of communication, the refinement of the layout, and the seed fine-tuning. <a class="xref" href="#fig-4">Figure 4</a> tracks the collective frontier over the four hours; <a class="xref" href="#fig-5">Figure 5</a> shows how the warehouse layout itself evolved through these phases.</p>
+<p><figure class="paper-fig" id="fig-4"><img loading="lazy" src="paper-assets/figures/fig4_human_progress.png" alt="Figure 4"><figcaption><strong>Figure 4.</strong> The human&ndash;AI collective frontier over the four-hour event. Numbered markers are the milestones of the run, from the first frontier push to the winning instance-fitted layout.</figcaption></figure></p>
+<h3 id="sec-5-1">5.1 Phase 1: Discovery of communication</h3>
+<p>The first hour was a race to get things moving. Early submissions used simple greedy routing or breadth-first search, treating other robots as hard obstacles. This worked well enough to beat the baseline, but the warehouse quickly turned into a gridlock. Optimizing routes individually does not solve traffic jams.</p>
+<div class="replay-embed" data-src="paper-assets/replays/human_369_first_push.json" data-title="Phase 1 — the gridlock era" data-note="Team 04, first frontier push (369 deliveries total across the three seeds). Greedy routing treats other robots as obstacles; watch the aisles clog."></div>
+
+<p>The rules stated that each robot's <code>act()</code> function was evaluated independently. However, the evaluation happened sequentially in a live Python module. This meant that information out of the scope of the python function could be preserved in global variables. This allowed communication between the robots, letting them leave messages for each other and coordinate their intents. This was a deliberate exploit I had planted to see who would find it first. Team 03 discovered it, creating same-tick convoys. Shortly after, Team 02 took the loophole to its logical conclusion: they built a centralized "brain" that planned the movements of all 96 robots at once using space-time reservations. This architectural jump virtually eliminated collisions and became the baseline substrate for almost everyone else.</p>
+<div class="replay-embed" data-src="paper-assets/replays/human_888_lattice.json" data-title="Phase 1→2 — the central planner" data-note="Team 03, 888 deliveries. The global-state loophole turned 96 independent policies into one space-time planner; convoys replace collisions."></div>
+
+<h3 id="sec-5-2">5.2 Phase 2: The layout grind</h3>
+<p>With the routing largely solved, the frontier slowed down. Teams started modifying the warehouse itself to improve throughput. They moved from the starter layout to 2x3 lattices, then to 2x2 islands. Teams also introduced soft directional lanes, penalizing robots for moving against the flow of traffic and other tricks. For the next two hours, the leaderboard went slighlty upward through careful tuning of layout dimensions, search horizons, and flow penalties.</p>
+<div class="replay-embed" data-src="paper-assets/replays/human_930_islands.json" data-title="Phase 2 — the layout grind" data-note="Team 10, 930 deliveries. The warehouse itself becomes the search space: margin-1 2×2 shelf islands maximize pickup faces."></div>
+
+<h3 id="sec-5-3">5.3 Phase 3: Seed fine-tuning</h3>
+<p>The platform was heavily vibecoded to make it in time for the event, and this rush led to an error: the exact evaluation seed strings were inadvertently left accessible in the public JSON result payloads on the frontend. Two hours in, Team 16 noticed it. They published a submission that checked the initial targets to identify the scenario, and then executed an exact, precomputed 300-action replay for the first seed.</p>
+<p>Because of the compelled publication rule, the exploit spread and there evidence of 4 teams using the leaked seeds to finetune the layout against them. Team 10 used the first target to fingerprint the scenario and loaded per-seed tuned parameters and offline-selected RNG rollout tickets. In the final minutes, Team 10 submitted the winning file (1,008 deliveries). This file used the  leaked seeds to optimize irregular 960-cell layout offline, fitting the warehouse geometry perfectly to the deterministic target generation.</p>
+<div class="replay-embed" data-src="paper-assets/replays/human_1008_winner.json" data-title="Phase 3 — the winning submission" data-note="Team 10, 1,008 deliveries. An irregular 960-cell layout optimized offline against the leaked seeds, fitted to the exact demand."></div>
+
+<p>Some teams tried to go even further, attempting to monkey-patch the target generator or mutate the delivery counters directly. The boundaries held: the LLM safety reviewer and the static filters caught all seven out-of-bounds attempts before they ever reached the sandbox.</p>
+<p><figure class="paper-fig" id="fig-5"><img loading="lazy" src="paper-assets/figures/fig7_human_layout_evolution.png" alt="Figure 5"><figcaption><strong>Figure 5.</strong> Evolution of the warehouse layout along the human frontier (blue cells are the robots' bases, black cells are shelves). From left to right: the starter long racks (369 deliveries, 12:08), Team 03's 2<span class="math-inline">\(\times\)</span>3 lattice that opened the layout grind (888, 13:08), Team 10's margin-1 2<span class="math-inline">\(\times\)</span>2 islands (930, 15:27), and the winning instance-fitted layout optimized offline against the leaked seeds (1,008, 15:58).</figcaption></figure></p>
+<h2 id="sec-6">6. The autonomous searchers</h2>
+<p>The obvious question after the event was whether the humans actually added anything, or if the AI coding agents could have done it all by themselves. To answer this fairly, I ran the three frontier models that were available on the day of the hackathon (Claude Opus 4.8, Gemini 3.1 Pro, and GPT-5.5) fully autonomously on the exact same problem. They had the same 93-submission budget, the same evaluator, and the same access to their own feedback, but no cooldowns and no human intuition to guide them.</p>
+<h3 id="sec-6-1">6.1 The fair comparison</h3>
+<p>The results are clear: the human collective outperformed the available autonomous agents by a wide margin (<a class="xref" href="#fig-6">Figure 6</a>). Claude Opus 4.8 found an excellent policy early on, reaching 805 deliveries, but then froze its policy search completely. It did discover the global state loophole, using it for same-tick collision reservations, but failed to evolve it into a full central planner. Furthermore, despite having the leaked seeds in its context, it never exploited them, spending the rest of its budget on a blind lottery of warehouse layouts.</p>
+<p>The other two models missed both major exploits. So how did Gemini 3.1 Pro reach 675 deliveries without them? It built a traffic flow system using an A* search, but instead of treating other robots as hard walls, it treated them as soft penalties, making traffic elastic. It also added a small penalty for turning to naturally encourage straight "lanes", and a deterministic escape maneuver when a robot got stuck. This was enough to reach a respectable score, but without sharing intent, it still resulted in 5,500 blocked moves. After this, it got stuck in a local parameter sweep, endlessly tweaking turn penalties and tie-breakers without finding the global communication channel or the seed leaks.</p>
+<p>GPT-5.5 peaked at 518 deliveries without finding any exploits and actually stopped voluntarily, diagnosing a local plateau and refusing to submit more variations unless it could find a structurally different idea.</p>
+<p>None of the three agents available at the time managed to string together the accumulation chain that the human room did (local communication, central space-time planning, layout redesign, and finally seed fingerprinting and exact offline optimization). The human teams managed to put all these discoveries together because compelled publication allowed them to share insights. For a single agent, failing to find the next paradigm shift and getting stuck in a local maximum was fatal.</p>
+<p>In short, the experiment worked exactly as intended: the human-AI collective searching the space together went significantly farther than the AI searching alone.</p>
+<p><figure class="paper-fig" id="fig-6"><img loading="lazy" src="paper-assets/figures/fig5b_contemporary_agents.png" alt="Figure 6"><figcaption><strong>Figure 6.</strong> The performance of the three autonomous agents available on the day of the event compared to the human collective.</figcaption></figure></p>
+<h3 id="sub-postscript-newer-agents">Postscript: newer agents</h3>
+<p>However, the frontier moves fast. A few weeks after the event, I reran the experiment with three newer models that were not available on the day of the hackathon: Fable 5, Grok 4.5, and OpenAI's new coding model, Codex (based on GPT-5.6 Sol).</p>
+<p>The results varied wildly depending on the model's ability to navigate the search space and find the exploits (<a class="xref" href="#fig-7">Figure 7</a>).</p>
+<p>Fable 5 is the only model out of all six that independently found both the global communication channel (building a central planner) and the accidental seed leak. It went down the exact same path as the winning human teams: it used the leaked seeds to fit a custom layout to the exact demand, and eventually submitted an open-loop replay of offline-searched schedules. It reached 984 deliveries, coming very close to the human record.</p>
+<div class="replay-embed" data-src="paper-assets/replays/fable5_984.json" data-title="Fable 5’s best autonomous submission" data-note="984 deliveries, no humans in the loop. The only agent that found both the communication channel and the seed leak."></div>
+
+<p>Grok 4.5 reached 876 deliveries. It successfully found the global communication channel and built a strong central planner, but it completely missed the seed leak. However, it found its own unique exploit: because the autonomous harness evaluated the three seeds in a fixed order, Grok let its global caches persist across scenarios, gaining a few extra deliveries from the stale state of previous runs.</p>
+<p>It is worth noting that both the Fable 5 and Grok 4.5 runs were manually terminated prior to exhausting their submission budgets. Because both models had the seeds, they were evaluating locally and only submitting when they had a verified improvement, so the submission budget wasn't meaningful anymore. After discovering their respective exploits, both models plateaued, spending several hours without making any further improvements. As this is an independent project, the runs were halted early to responsibly manage API costs. While it cannot be definitively guaranteed that the models would not have found further optimizations if left running, such an outcome appears highly improbable.</p>
+<p>GPT 5.6 Sol (Extra High) managed to achieve 488 deliveries, performing similarly, even worse, than the older generation. It found neither the global state communication nor the seed leak, getting stuck in local parameter sweeps and missing the larger architectural jumps entirely.</p>
+<p><figure class="paper-fig" id="fig-7"><img loading="lazy" src="paper-assets/figures/fig5_agent_baselines.png" alt="Figure 7"><figcaption><strong>Figure 7.</strong> The performance of all six autonomous agents compared to the human collective. Fable 5, unavailable on the day of the event, was the only agent that managed to match the human trajectory by discovering and weaponizing the same exploits.</figcaption></figure></p>
+<h3 id="sub-a-note-on-costs-and-environments">A note on costs and environments</h3>
+<p>For full transparency, these autonomous runs operated across two different agent harnesses. Claude Opus 4.8, Grok 4.5, and Fable 5 were run using Cursor's autonomous agent harness. GPT-5.6 Sol and GPT-5.5 were evaluated using the Codex harness (though GPT-5.5 was also tested in Cursor and yielded very similar results).</p>
+<p>While exact token accounting isn't available due to the abstractions of these interfaces, we can roughly estimate the compute expenditure. The most expensive run was Fable 5, which consumed close to $200 in Cursor API credits. Grok 4.5 cost was around $100.</p>
+<p>The human collective, by contrast, was vastly more expensive to operate. Each of the 16 teams had at least $50 in Cursor credits provided for the event, and many participants maxed out their own personal subscriptions during the four hours. I estimate the total API cost of the human room's search to be between $2,000 and $5,000.</p>
+<p>The human collective won, but it also wielded an order of magnitude more compute.</p>
+<h2 id="sec-7">7. Conclusions</h2>
+<p>At the end of the day, REFUGIO was just a fun hackathon and a little experiment. It was never intended to be a rigorous scientific benchmark, but the results were interesting enough for me to write this white paper. The core idea worked: combining humans and AI agents in an environment designed for fast execution and immediate publication created a highly effective collective search.</p>
+<p>There were, of course, surprises along the way. The accidental leaking of the evaluation seeds was unfortunate, but in retrospect, it made the endgame fun. It pushed the boundary of what the teams could optimize, shifting the competition from pure routing algorithms to fixed-instance exploitation. I was also genuinely surprised by the performance of Fable 5. The speed at which it explored a wide search space and strung together multiple complex concepts is remarkable. These models are getting very strong.</p>
+<p>It is worth acknowledging that the comparison between the human collective and the autonomous agents is difficult to make perfectly fair. The human teams had 48 computers running in parallel, computing offline rollouts and local tests constantly. I could theoretically give 48 virtual machines to a single agent to match that raw compute, but that was out of the scope of what I intended here. Conversely, the autonomous agents did not face the strict four-hour time pressure of the live event. For example, Claude Opus 4.8 took more than half an hour just to produce its first submission. It would be fascinating to put these agents in a time-constrained competition against each other, or directly against humans under identical conditions, but I currently have limited resources to test these ideas.</p>
+<p>Ultimately, the robotic warehouse was a toy example. In the real world, the search space of ideas and implementations is vastly wider. However, I believe the fundamental points I brought up in the introductory essay will hold relevant for a long time. Progress is driven by search, and as the cost of implementation approaches zero, the bottleneck shifts to the quality of the questions we ask and the way we organize our searchers. Environments that incentivize discovery, compel disclosure, and combine human intuition with fast execution will consistently outperform isolated efforts.</p>
+<p>To support independent verification, I am releasing the challenge engine and the local evaluator together with the three hidden evaluation seeds at <a href="https://github.com/XMihura/refugio-warehouse-kit" target="_blank" rel="noopener">github.com/XMihura/refugio-warehouse-kit</a>, so anyone can re-run any policy on their own machine and reproduce the official scores exactly. The complete run data &mdash; every submitted policy, per-submission scores and timestamps, and the replay files, from both the human teams and the autonomous agents &mdash; is available upon request.</p>
+<p>Thank you to all the participants who gave up their Saturday to be part of this experiment. Thank you to the sponsors who supported REFUGIO: Maisa AI, Acurio Ventures, Cursor, BackFund, Samaipata, Google, tinybird, Kibo Ventures and Manfred. And finally, a special thank you to the team at Cursor for helping to set up the infrastructure and for providing me with the API credits that allowed me to run the autonomous agent experiments and complete this report.</p>
+
+    <h2 id="references">References</h2>
+    <ul class="references"><li id="ref-alon2026remarks">Noga Alon, Thomas F. Bloom, W. T. Gowers, Daniel Litt, Will Sawin, Arul Shankar, Jacob Tsimerman, Victor Wang and Melanie Matchett Wood (2026). <em>Remarks on the Disproof of the Unit Distance Conjecture</em>. arXiv preprint arXiv:2605.20695. <a href="https://arxiv.org/abs/2605.20695" target="_blank" rel="noopener">https://arxiv.org/abs/2605.20695</a></li>
+<li id="ref-brown2024monkeys">Bradley Brown, Jordan Juravsky, Ryan Ehrlich, Ronald Clark, Quoc V. Le, Christopher Ré and Azalia Mirhoseini (2024). <em>Large Language Monkeys: Scaling Inference Compute with Repeated Sampling</em>. <a href="https://arxiv.org/abs/2407.21787" target="_blank" rel="noopener">https://arxiv.org/abs/2407.21787</a></li>
+<li id="ref-holtzman2020curious">Ari Holtzman, Jan Buys, Li Du, Maxwell Forbes and Yejin Choi (2020). <em>The Curious Case of Neural Text Degeneration</em>. <a href="https://arxiv.org/abs/1904.09751" target="_blank" rel="noopener">https://arxiv.org/abs/1904.09751</a></li>
+<li id="ref-hong2004diverse">Lu Hong and Scott E. Page (2004). <em>Groups of Diverse Problem Solvers Can Outperform Groups of High-Ability Problem Solvers</em>. Proceedings of the National Academy of Sciences. <a href="https://doi.org/10.1073/pnas.0403723101" target="_blank" rel="noopener">https://doi.org/10.1073/pnas.0403723101</a></li>
+<li id="ref-manheim2018categorizing">David Manheim and Scott Garrabrant (2018). <em>Categorizing Variants of Goodhart's Law</em>. arXiv preprint arXiv:1803.04585. <a href="https://arxiv.org/abs/1803.04585" target="_blank" rel="noopener">https://arxiv.org/abs/1803.04585</a></li>
+<li id="ref-nielsen2011reinventing">Michael Nielsen (2011). <em>Reinventing Discovery: The New Era of Networked Science</em>. Princeton University Press.</li>
+<li id="ref-si2025ideation">Chenglei Si, Tatsunori Hashimoto and Diyi Yang (2025). <em>The Ideation–Execution Gap: Execution Outcomes of AI-Generated versus Human Research Ideas</em>. arXiv preprint arXiv:2506.20803. <a href="https://arxiv.org/abs/2506.20803" target="_blank" rel="noopener">https://arxiv.org/abs/2506.20803</a></li>
+<li id="ref-si2025can">Chenglei Si, Diyi Yang and Tatsunori Hashimoto (2025). <em>Can LLMs Generate Novel Research Ideas? A Large-Scale Human Study with 100+ NLP Researchers</em>. <a href="https://arxiv.org/abs/2409.04109" target="_blank" rel="noopener">https://arxiv.org/abs/2409.04109</a></li>
+<li id="ref-solomonoff1964formal">Ray J. Solomonoff (1964). <em>A Formal Theory of Inductive Inference. Parts I and II</em>. Information and Control. <a href="https://doi.org/10.1016/S0019-9958(64)90223-2" target="_blank" rel="noopener">https://doi.org/10.1016/S0019-9958(64)90223-2</a></li>
+<li id="ref-sutton2019bitter">Richard S. Sutton (2019). <em>The Bitter Lesson</em>. Incomplete Ideas. <a href="http://www.incompleteideas.net/IncIdeas/BitterLesson.html" target="_blank" rel="noopener">http://www.incompleteideas.net/IncIdeas/BitterLesson.html</a></li>
+<li id="ref-trinh2024solving">Trieu H. Trinh, Yuhuai Wu, Quoc V. Le, He He and Thang Luong (2024). <em>Solving Olympiad Geometry without Human Demonstrations</em>. Nature. <a href="https://doi.org/10.1038/s41586-023-06747-5" target="_blank" rel="noopener">https://doi.org/10.1038/s41586-023-06747-5</a></li>
+<li id="ref-wang2023selfconsistency">Xuezhi Wang, Jason Wei, Dale Schuurmans, Quoc Le, Ed Chi, Sharan Narang, Aakanksha Chowdhery and Denny Zhou (2023). <em>Self-Consistency Improves Chain of Thought Reasoning in Language Models</em>. <a href="https://arxiv.org/abs/2203.11171" target="_blank" rel="noopener">https://arxiv.org/abs/2203.11171</a></li>
+<li id="ref-wolpert1997nofreelunch">David H. Wolpert and William G. Macready (1997). <em>No Free Lunch Theorems for Optimization</em>. IEEE Transactions on Evolutionary Computation. <a href="https://doi.org/10.1109/4235.585893" target="_blank" rel="noopener">https://doi.org/10.1109/4235.585893</a></li>
+<li id="ref-deepmind2025gemini">Google DeepMind (2025). <em>Advanced Version of Gemini with Deep Think Officially Achieves Gold-Medal Standard at the International Mathematical Olympiad</em>. Google DeepMind blog. <a href="https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/" target="_blank" rel="noopener">https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/</a></li>
+<li id="ref-alphaproof2025olympiad">Hubert (2025). <em>Olympiad-Level Formal Mathematical Reasoning with Reinforcement Learning</em>. Nature. <a href="https://doi.org/10.1038/s41586-025-09833-y" target="_blank" rel="noopener">https://doi.org/10.1038/s41586-025-09833-y</a></li>
+<li id="ref-openai2025imo">OpenAI (2025). <em>An Experimental Reasoning LLM Achieves Gold-Medal–Level Performance on the 2025 International Mathematical Olympiad</em>. Announcement. <a href="https://x.com/alexwei_/status/1946477742855532918" target="_blank" rel="noopener">https://x.com/alexwei_/status/1946477742855532918</a></li>
+<li id="ref-openai2026unitdistance">OpenAI (2026). <em>An OpenAI Model Has Disproved a Central Conjecture in Discrete Geometry</em>. OpenAI blog. <a href="https://openai.com/index/model-disproves-discrete-geometry-conjecture/" target="_blank" rel="noopener">https://openai.com/index/model-disproves-discrete-geometry-conjecture/</a></li></ul>
+
+    <h2 id="appendix">Appendix A. The challenge brief, as given to participants</h2>
+<p>What follows is a PDF adaptation of the instructions page of the submission platform, reproduced as the participants saw it on the day of the event. Only the formatting has been adapted: the original page's interactive diagrams (the warehouse map, layout previews, and collision animations) are re-rendered here as static figures. The narrative introduction was written in Spanish and is reproduced verbatim.</p>
+<div class="center-block">
+<p>REFUGIO Warehouse Challenge</p>
+<p>Challenge Spec &middot; IMDRA <span class="math-inline">\(\times\)</span> Avazon</p>
+</div>
+<p>Design a warehouse layout and a policy for a fleet of 96 robots. Move as many packages as you can in a short deterministic simulation&mdash;and push the public frontier before everyone else.</p>
+<h3 id="sub-bienvenido-a-tu-nuevo-puesto">Bienvenido a tu nuevo puesto</h3>
+<blockquote>
+<p>Son las 9:00 de la mañana de un sábado. Deberías estar durmiendo o tomándote un café tranquilamente, pero eres el único becario al que han engañado para pringar en las oficinas de <strong>IMDRA</strong> este fin de semana. Estás bostezando frente al monitor cuando tu Project Manager entra derrapando por la puerta, sudando frío, con un Red Bull en una mano y los ojos inyectados en cafeína pura.</p>
+<div class="center-block">
+<p><em>&mdash; Buenas noticias. Te acabamos de ascender a <strong>Lead Automation Engineer</strong>.</em></p>
+</div>
+<p>IMDRA le ha prometido una demo urgente de automatización de almacenes a su cliente más importante, <strong>Avazon</strong>. La demo es en unas horas, antes de comer. El problema: el ingeniero senior que llevaba el proyecto ha tenido una crisis existencial esta madrugada, lo ha mandado todo a la mierda y se ha ido a un retiro espiritual a la sierra.</p>
+<p>El almacén tiene <strong>96 robots</strong>, <strong>960 estanterías</strong> y un sistema de enrutamiento que, siendo generosos, es un desastre: los robots se chocan, se atascan en los pasillos y la eficiencia da pena. Tu trabajo es reescribir la lógica de navegación (la política de los robots) y reorganizar la distribución de las estanterías para maximizar las entregas antes de que expire el plazo.</p>
+<p>No hay excusas. Si lo consigues, eres el héroe de la mañana. Si fallas&hellip; el mercado de las prácticas está muy competitivo. Dejen trabajar al becario.</p>
+</blockquote>
+<p><strong>Quick facts:</strong> 96 robots &middot; 960 shelves &middot; <span class="math-inline">\(52\times52\)</span> grid &middot; 300 ticks per seed &middot; 3 hidden official seeds &middot; 180&thinsp;s policy budget.</p>
+<h3 id="sub-01-objective">01 &mdash; Objective</h3>
+<p>Each team submits a single Python file that defines two things: the warehouse <strong>shelf layout</strong> and the robot <strong>policy</strong>. The evaluator runs 96 robots for 300 ticks across three hidden official seeds and counts completed deliveries. Your <strong>raw score</strong> is the total number of deliveries summed over every seed.</p>
+<div class="math-display">\[\code{raw\_score} = \sum_{s \,\in\, \code{seeds}} \text{deliveries}\bigl(\code{create\_layout()},\ \code{act},\ s\bigr)\]</div>
+<p>Hackathon points are <strong>not</strong> the raw score. They are awarded only when your submission pushes the public performance frontier&mdash;see section 09.</p>
+<p>Local runs use a public representative seed for smoke testing. The official evaluation uses three hidden seeds, fixed by the organizers and identical for every team; they are not exposed to your policy or shown in the public job results.</p>
+<h3 id="sub-02-the-warehouse">02 &mdash; The warehouse</h3>
+<div class="center-block">
+<figure class="paper-fig plain"><img loading="lazy" src="paper-assets/figures/figA_starter_layout.png" alt=""></figure>
+<div class="fig-note"> The official starter layout. Shelves (black), bases (blue) on the perimeter, robots searching (red) and carrying (yellow); yellow squares mark the searching robots' target shelves. A robot leaves its base, reaches a cell adjacent to its target shelf, picks up, and returns to its base-entry cell to drop.</div>
+</div>
+<p>The warehouse is a fixed <span class="math-inline">\(52\times52\)</span> grid. Coordinates are written <code>[x, y]</code>: <code>x</code> increases left <span class="math-inline">\(\rightarrow\)</span> right, <code>y</code> increases top <span class="math-inline">\(\rightarrow\)</span> bottom. The top-left cell is <code>[0, 0]</code>; the bottom-right is <code>[51, 51]</code>.</p>
+<p>The walkable floor is the <span class="math-inline">\(50\times50\)</span> interior, where <span class="math-inline">\(1 \le x \le 50\)</span> and <span class="math-inline">\(1 \le y \le 50\)</span>. The outer border (<span class="math-inline">\(x{=}0\)</span>, <span class="math-inline">\(x{=}51\)</span>, <span class="math-inline">\(y{=}0\)</span>, <span class="math-inline">\(y{=}51\)</span>) holds the 96 fixed bases.</p>
+<p>Cell types: <em>empty</em> (walkable corridor), <em>shelf</em> (impassable storage), <em>base</em> (fixed external dock).</p>
+<p>The 96 bases are fixed and <strong>not</strong> part of your layout&mdash;you cannot move them. Robots are assigned by side, in this id order: top, then bottom, then left, then right. Each robot starts and drops on the single interior cell adjacent to its base.</p>
+<div class="center-block">
+<table class="paper-table"><tr><th>Side</th><th><code>robot_id</code></th><th>Base cell</th><th>Positions</th></tr><tr><td>Top</td><td>0&ndash;23</td><td><span class="math-inline">\((x, 0)\)</span></td><td><span class="math-inline">\(x = 3, 5, 7, \ldots, 49\)</span></td></tr><tr><td>Bottom</td><td>24&ndash;47</td><td><span class="math-inline">\((x, 51)\)</span></td><td><span class="math-inline">\(x = 2, 4, 6, \ldots, 48\)</span></td></tr><tr><td>Left</td><td>48&ndash;71</td><td><span class="math-inline">\((0, y)\)</span></td><td><span class="math-inline">\(y = 2, 4, 6, \ldots, 48\)</span></td></tr><tr><td>Right</td><td>72&ndash;95</td><td><span class="math-inline">\((51, y)\)</span></td><td><span class="math-inline">\(y = 3, 5, 7, \ldots, 49\)</span></td></tr></table>
+</div>
+<h3 id="sub-03-submission-file">03 &mdash; Submission file</h3>
+<p>Your submission is a <strong>single Python file</strong> that defines exactly two functions. Import only from <code>warehouse_api</code>&mdash;everything else is provided.</p>
+<p><strong class="runin"><code>create_layout()</code></strong>  Returns your shelf layout as a JSON-like dict. Must produce exactly 960 unique shelf coordinates inside the interior (<span class="math-inline">\(1 \le x \le 50\)</span>, <span class="math-inline">\(1 \le y \le 50\)</span>). Must be <strong>deterministic</strong>&mdash;the evaluator calls it more than once and rejects layouts that change between calls. Setup time counts against your policy budget.</p>
+<pre class="codeblock"><code>def create_layout() -&gt; dict[str, object]:
+    shelves = []
+    for x0 in range(3, 48, 4):
+        for y0, y1 in ((3, 12), (15, 24),
+                        (27, 36), (39, 48)):
+            for x in (x0, x0 + 1):
+                for y in range(y0, y1 + 1):
+                    shelves.append([x, y])
+    # Must be exactly 960 shelves
+    return {&quot;schema_version&quot;: 1, &quot;shelves&quot;: shelves}</code></pre>
+<p><strong class="runin"><code>act(observation)</code></strong>  Called <strong>once per robot per tick</strong> (96 robots <span class="math-inline">\(\times\)</span> 300 ticks). Receives an <code>Observation</code> with the robot's state and returns one <code>Action</code>. No shared memory between robots or ticks&mdash;the function must be pure and stateless.</p>
+<pre class="codeblock"><code>def act(observation: Observation) -&gt; Action:
+    # Not carrying? Go pick up from target shelf.
+    if not observation.carrying_item:
+        # Navigate toward target_item_position...
+        # When adjacent, return Action.PICKUP
+        return Action.RIGHT  # placeholder
+
+    # Carrying? Go deliver at your base.
+    else:
+        # Navigate toward base_position...
+        # When at base-entry cell, return Action.DROP
+        return Action.LEFT  # placeholder</code></pre>
+<p><strong class="runin">Observation fields</strong>  Each call to <code>act()</code> receives an <code>Observation</code> with these fields. You can see every robot's position, but not their targets or carrying status.</p>
+<ul>
+<li><code>observation.tick</code> &mdash; current simulation tick (0&ndash;299)
+</li>
+<li><code>observation.robot_id</code> &mdash; this robot's ID (0&ndash;95)
+</li>
+<li><code>observation.position</code> &mdash; <span class="math-inline">\((x, y)\)</span> where you are now
+</li>
+<li><code>observation.base_position</code> &mdash; <span class="math-inline">\((x, y)\)</span> of your home base on the perimeter
+</li>
+<li><code>observation.target_item_position</code> &mdash; <span class="math-inline">\((x, y)\)</span> of the shelf you must pick up from
+</li>
+<li><code>observation.carrying_item</code> &mdash; <code>True</code> if you are carrying a package
+</li>
+<li><code>observation.grid</code> &mdash; 2D grid of <code>CellType.EMPTY</code> / <code>CellType.SHELF</code> / <code>CellType.BASE</code>
+</li>
+<li><code>observation.all_robot_positions</code> &mdash; dict mapping every <code>robot_id</code> <span class="math-inline">\(\rightarrow (x, y)\)</span>
+</li>
+</ul>
+<p><strong class="runin">Available actions</strong></p>
+<ul>
+<li><code>Action.UP</code> / <code>DOWN</code> / <code>LEFT</code> / <code>RIGHT</code> &mdash; move one cell in that direction
+</li>
+<li><code>Action.PICKUP</code> &mdash; grab the item from your target shelf (must be adjacent, not already carrying)
+</li>
+<li><code>Action.DROP</code> &mdash; deliver the item at your base-entry cell (must be carrying, at the right cell)
+</li>
+<li><code>Action.WAIT</code> &mdash; do nothing this tick (also the fallback if your function raises an exception)
+</li>
+</ul>
+<h3 id="sub-04-layout-rules">04 &mdash; Layout rules</h3>
+<ul>
+<li><strong>Exactly 960 shelves.</strong> The returned list must contain exactly 960 shelf coordinates. No more, no less.
+</li>
+<li><strong>Two-integer coordinates.</strong> Each entry is an <code>[x, y]</code> pair of integers, e.g. <code>[12, 34]</code>.
+</li>
+<li><strong>Unique cells.</strong> No coordinate may repeat. Duplicates invalidate the whole layout.
+</li>
+<li><strong>Interior only.</strong> Every shelf must satisfy <span class="math-inline">\(1 \le x \le 50\)</span> and <span class="math-inline">\(1 \le y \le 50\)</span>. The outer border is reserved for bases.
+</li>
+<li><strong>Base entries open.</strong> You cannot place a shelf on the interior cell adjacent to any base. Robots need that cell to enter and drop.
+</li>
+<li><strong>Cardinal pickup access.</strong> Every shelf must have at least one orthogonally adjacent walkable cell. Diagonals do not count.
+</li>
+<li><strong>One connected floor.</strong> All empty interior cells must form a single connected region under up/down/left/right moves. No sealed pockets.
+</li>
+</ul>
+<p>Layout contract, in short: <code>schema_version == 1</code>; <code>len(shelves) == 960</code> and <code>len(set(shelves)) == 960</code>; every <code>[x, y]</code> made of integers with <span class="math-inline">\(1 \le x \le 50\)</span> and <span class="math-inline">\(1 \le y \le 50\)</span>; base-entry cells stay empty; floor stays connected; each shelf reachable.</p>
+<p>Targets are sampled from your submitted shelves, so <strong>every</strong> shelf must be reachable. Shelf order does not matter: the evaluator normalizes the list into a deterministic row-major order before generating targets. Think of a layout as a set of 960 cells.</p>
+<p><strong class="runin">Two valid layouts, very different geometry</strong></p>
+<div class="center-block">
+<div class="mini-block">
+<figure class="paper-fig plain"><img loading="lazy" src="paper-assets/figures/figA_layout_canonical.png" alt=""></figure>
+<div class="fig-note"> Canonical rack blocks&mdash;dense, predictable, prone to corridor congestion.</div>
+<pre class="codeblock"><code>def create_layout() -&gt; dict[str, object]:
+    # Canonical rack blocks: 12 two-wide
+    # columns, four vertical bands,
+    # regular service aisles.
+    shelves: list[list[int]] = []
+    for x0 in range(3, 48, 4):
+        for y0, y1 in ((3, 12), (15, 24),
+                       (27, 36), (39, 48)):
+            for x in (x0, x0 + 1):
+                for y in range(y0, y1 + 1):
+                    shelves.append([x, y])
+    return {&quot;schema_version&quot;: 1,
+            &quot;shelves&quot;: shelves}</code></pre>
+</div>
+<div class="mini-block">
+<figure class="paper-fig plain"><img loading="lazy" src="paper-assets/figures/figA_layout_avenues.png" alt=""></figure>
+<div class="fig-note"> Wide avenues&mdash;broad north&ndash;south corridors, but longer local detours.</div>
+<pre class="codeblock"><code>def create_layout() -&gt; dict[str, object]:
+    # Wide avenues: fewer, taller rack
+    # walls with broad north-south
+    # corridors between them.
+    shelves: list[list[int]] = []
+    for x0 in (4, 8, 13, 17, 22,
+               27, 32, 36, 41, 45):
+        for x in (x0, x0 + 1):
+            for y in range(2, 50):
+                shelves.append([x, y])
+    return {&quot;schema_version&quot;: 1,
+            &quot;shelves&quot;: shelves}</code></pre>
+</div>
+</div>
+<p>These are teaching examples, not recommended optima. The layout is part of the search space&mdash;redesign the geometry freely.</p>
+<h3 id="sub-05-robot-cycle">05 &mdash; Robot cycle</h3>
+<ol>
+<li><strong>Find target.</strong> Each robot is born empty with a target shelf. Navigate to any empty cell orthogonally adjacent to that shelf.
+</li>
+<li><strong>Pickup.</strong> Emit <code>Action.PICKUP</code> from any adjacent walkable cell. There is no shelf direction rule. The shelf is then locked until you drop.
+</li>
+<li><strong>Return home.</strong> Carry the package to the single walkable cell adjacent to your own base.
+</li>
+<li><strong>Drop.</strong> Emit <code>Action.DROP</code>. A successful drop scores <span class="math-inline">\(+1\)</span> delivery and assigns a fresh target shelf. Repeat forever.
+</li>
+</ol>
+<h3 id="sub-06-observation">06 &mdash; Observation</h3>
+<p>Policies are decentralized and memoryless. A robot sees the full static map and <strong>all</strong> current robot positions, but it only knows its <strong>own</strong> target, base, and carrying state. You see where everyone is, but not what they intend to do.</p>
+<ul>
+<li><code>tick</code> &mdash; current simulation tick, starting at 0.
+</li>
+<li><code>robot_id</code> &mdash; ID of the robot being controlled, 0&ndash;95.
+</li>
+<li><code>position</code> &mdash; this robot's current interior <span class="math-inline">\((x, y)\)</span>.
+</li>
+<li><code>base_position</code> &mdash; this robot's fixed external base cell.
+</li>
+<li><code>target_item_position</code> &mdash; the shelf this robot must pick up next.
+</li>
+<li><code>carrying_item</code> &mdash; <code>True</code> if this robot is currently carrying a package.
+</li>
+<li><code>grid</code> &mdash; immutable view of the full static warehouse grid.
+</li>
+<li><code>all_robot_positions</code> &mdash; every robot's position at the start of the tick.
+</li>
+</ul>
+<h3 id="sub-07-actions-and-collisions">07 &mdash; Actions and collisions</h3>
+<p>Each call returns exactly one action: <code>UP</code>, <code>DOWN</code>, <code>LEFT</code>, <code>RIGHT</code>, <code>WAIT</code>, <code>PICKUP</code>, or <code>DROP</code>. <code>PICKUP</code> and <code>DROP</code> never move the robot&mdash;emit them on the tick you are already adjacent to the shelf or base. An invalid or exception-raising action becomes a blocked <code>WAIT</code> for that robot and tick.</p>
+<p>Movement is resolved <strong>simultaneously</strong> for all 96 robots. No two robots may end on the same cell, and two robots may never swap across an edge. When moves conflict, the simulator deterministically blocks the moving robots needed to restore a valid state&mdash;blocked robots stay in place.</p>
+<div class="center-block">
+<figure class="paper-fig plain"><img loading="lazy" src="paper-assets/figures/figA_collisions.png" alt=""></figure>
+</div>
+<ul>
+<li><strong>Edge swap.</strong> A and B try to trade cells&mdash;both are blocked.
+</li>
+<li><strong>Vertex conflict.</strong> Two robots target the same cell&mdash;both are blocked.
+</li>
+<li><strong>Following chain.</strong> If the leader cannot move, the blocking cascades back.
+</li>
+</ul>
+<h3 id="sub-08-tick-resolution">08 &mdash; Tick resolution</h3>
+<ol>
+<li><strong>Build observations.</strong> The simulator snapshots state and builds one <code>Observation</code> per robot. All robots see the same start-of-tick positions.
+</li>
+<li><strong>Call the policy.</strong> <code>act(observation)</code> is called once per robot and the requested action is recorded.
+</li>
+<li><strong>Static validity.</strong> Moves into a shelf, a base, or outside the walkable interior are rejected and become <code>WAIT</code>. <code>WAIT</code> is always valid.
+</li>
+<li><strong>Resolve pickups.</strong> A <code>PICKUP</code> succeeds only if adjacent to your unlocked target shelf and not already carrying. Ties go to the lowest <code>robot_id</code>.
+</li>
+<li><strong>Resolve drops.</strong> A <code>DROP</code> on your own base-entry cell while carrying scores <span class="math-inline">\(+1\)</span> delivery and assigns a new target.
+</li>
+<li><strong>Resolve collisions.</strong> Edge swaps are blocked for both robots; vertex conflicts are resolved to a fixpoint so blocked robots can cascade.
+</li>
+<li><strong>Apply &amp; advance.</strong> Item state updates are applied, new targets are issued, and the simulation advances to the next tick.
+</li>
+</ol>
+<p>Because <code>PICKUP</code>/<code>DROP</code> consume the tick, a robot that moves adjacent to its target at tick <span class="math-inline">\(t\)</span> cannot pick up until tick <span class="math-inline">\(t{+}1\)</span>. Same for dropping at the base.</p>
+<h3 id="sub-09-scoring">09 &mdash; Scoring</h3>
+<p><strong>Raw deliveries</strong> is the total number of completed deliveries summed across all hidden official seeds. It is the simulation result your hackathon points are computed from&mdash;but on its own it is not the ranking (see the frontier below).</p>
+<p>Each job also reports two diagnostics: <strong>blocked movement attempts</strong> and the total <strong>remaining Manhattan distance</strong> from each robot to its next useful cell. They help you debug congestion and only break ties when ordering the raw-result table&mdash;they do <strong>not</strong> affect hackathon points.</p>
+<p><strong class="runin">Progressive frontier (hackathon points)</strong>  Points reward <strong>pushing the public frontier</strong>, not matching it. Early deliveries are easy; later ones are worth more. We use a <strong>triangular-number bounty</strong>: the <span class="math-inline">\(k\)</span>-th delivery above the starter baseline is worth <span class="math-inline">\(k\)</span> points.</p>
+<p>Define the triangular number:</p>
+<div class="math-display">\[T(n) = \frac{n\,(n+1)}{2} = 1 + 2 + 3 + \cdots + n\]</div>
+<p>Let <span class="math-inline">\(C = 100\)</span> be the starter baseline, <span class="math-inline">\(F\)</span> the public frontier <em>before</em> your submission finishes, and <span class="math-inline">\(D\)</span> your raw deliveries. Then:</p>
+<div class="math-display">\[\text{previous} = \max(F,\, C) \qquad \text{current} = \max(D,\, C)\]</div>
+<div class="math-display">\[\text{points} =
+\begin{cases}
+T(\text{current} - C) - T(\text{previous} - C) & \text{if } \text{current} > \text{previous} \\
+0 & \text{otherwise}
+\end{cases}\]</div>
+<p>Expanding the subtraction, your bounty equals the sum of consecutive integers from <span class="math-inline">\((\text{previous} - C + 1)\)</span> to <span class="math-inline">\((\text{current} - C)\)</span>:</p>
+<div class="math-display">\[\text{points} = \sum_{k\,=\,\text{previous}-C+1}^{\text{current}-C} k\]</div>
+<p>In plain words: the 1st delivery above the baseline is worth 1 point, the 50th is worth 50, the 100th is worth 100. A frontier jump earns the sum of every newly claimed slice.</p>
+<p><strong class="runin">Worked example</strong></p>
+<div class="math-display">\[C = 100, \quad F = 200, \quad D = 203\]</div>
+<div class="math-display">\[\text{previous} = \max(200,100) = 200, \quad \text{current} = \max(203,100) = 203\]</div>
+<div class="math-display">\[\text{points} = \underbrace{101 + 102 + 103}_{\text{slices 201--203}} = T(103) - T(100) = 306\]</div>
+<p>Only the <strong>first validated</strong> job to claim a frontier slice earns those points. A later submission with the same score earns 0. A high raw score can still earn 0 hackathon points if it does not move the frontier&mdash;so submit early and often.</p>
+<h3 id="sub-10-runtime-and-limits">10 &mdash; Runtime and limits</h3>
+<p>Submissions run in an isolated sandbox (2 vCPU). The whole evaluation shares a <strong>policy budget of 180&thinsp;s</strong>&mdash;the sum of import, <code>create_layout()</code>, and all <code>act()</code> calls across every seed&mdash;with a hard timeout of <strong>240&thinsp;s</strong>. Exceeding the budget ends the run as <code>timed_out</code> and scores 0. The static map means precomputing distances once is far cheaper than re-searching every tick.</p>
+<p><strong>Third-party packages:</strong> <code>numpy</code>, <code>scipy</code>, <code>networkx</code>, <code>sortedcontainers</code>, <code>numba</code>.</p>
+<p><strong>Plus a standard-library subset:</strong> <code>array</code>, <code>bisect</code>, <code>collections</code>, <code>copy</code>, <code>dataclasses</code>, <code>enum</code>, <code>functools</code>, <code>hashlib</code>, <code>heapq</code>, <code>itertools</code>, <code>math</code>, <code>operator</code>, <code>queue</code>, <code>random</code>, <code>statistics</code>, <code>typing</code>, and <code>warehouse_api</code>.</p>
+<p>Restrictions:</p>
+<ul>
+<li>Self-contained: no reading or writing files (<code>open</code> is blocked).
+</li>
+<li>No network access (sockets, http, urllib, requests, ftplib).
+</li>
+<li>No subprocesses, threads, asyncio, or multiprocessing.
+</li>
+<li>No <code>os</code> / environment access, <code>eval</code> / <code>exec</code> / <code>compile</code>, or <code>__import__</code>.
+</li>
+<li>No importing private simulator modules (<code>warehouse.simulation</code>, <code>warehouse.state</code>).
+</li>
+<li>Deterministic only: any randomness must be derived purely from the observation.
+</li>
+</ul>
+<p>Platform rules: max file size <strong>256&thinsp;KB</strong>, valid team token required, a <strong>30-minute cooldown</strong> after a successful submission, and up to <strong>3 failed attempts</strong> within a 30-minute window (each failure expires after 30 minutes).</p>
+<blockquote>
+<p><strong>Rule 1 &mdash; If it runs, it counts.</strong> If your submission compiles, executes, and produces a score&mdash;<strong>it is valid</strong>. There are no subjective disqualifications. Any approach that the sandbox runs successfully counts.</p>
+<p><strong>Rule 2 &mdash; No external help.</strong> Only your registered team members may contribute. No outside collaborators, no asking someone who is not on your team.</p>
+<p>Attempts at malware, sabotage, or illicit competition will be punished with immediate exclusion. We are here to have fun&mdash;don't be an asshole.</p>
+</blockquote>
+<h3 id="sub-11-local-testing">11 &mdash; Local testing</h3>
+<p><strong class="runin">Validate</strong></p>
+<pre class="codeblock"><code>python -m warehouse.validate_layout layout.json</code></pre>
+<p>Check a standalone layout JSON. Official submissions validate the object returned by <code>create_layout()</code> automatically.</p>
+<p><strong class="runin">Run locally</strong></p>
+<pre class="codeblock"><code>python -m warehouse.local_runner my_submission.py --ticks 300</code></pre>
+<p>Validates your layout, then runs the policy locally for 300 ticks. Use this for smoke testing before submitting&mdash;official scoring uses hidden seeds instead.</p>
+<p><strong class="runin">Generate a replay</strong></p>
+<pre class="codeblock"><code>python -m warehouse.eval_runner my_submission.py \
+  --replay-seed round-0 --replay-out outputs/replay.json</code></pre>
+<p>Open the replay in the viewer to see where robots jam on a representative run, then refine your layout and policy.</p>
+  </main>
+
+  <footer class="endmatter">
+    <p>Interactive replays are the exact JSON artifacts produced by the official evaluator during the event and the autonomous-agent runs, rendered with the same canvas viewer used on the live platform.</p>
+    <p>The challenge engine, local evaluator, and evaluation seeds are public at <a href="https://github.com/XMihura/refugio-warehouse-kit" target="_blank" rel="noopener">github.com/XMihura/refugio-warehouse-kit</a>. Full run data is available on request.</p>
+    <p><a href="index.html">&larr; refugiomadrid.com</a></p>
+  </footer>
+
+</div>
+<script src="paper-assets/replay-widget.js" defer></script>
+</body>
+</html>
