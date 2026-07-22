@@ -50,7 +50,10 @@ html, body {
   font-size: 17px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
+.paper a, .endmatter a, ul.references a { overflow-wrap: anywhere; }
+mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
 a { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--ink); }
 a:hover { background: var(--yellow); }
 ::selection { background: var(--yellow); color: var(--ink); }
@@ -311,14 +314,13 @@ ul.references li {
   left: 0;
   right: 0;
   height: 5px;
-  background: rgba(14, 14, 14, 0.15);
+  background: var(--ink);
   z-index: 60;
 }
 #progressbar .fill {
   height: 100%;
   width: 0%;
   background: var(--red);
-  border-right: 2px solid var(--ink);
 }
 
 #sectionbar {
@@ -379,12 +381,17 @@ ul.references li {
   border-left: var(--rule) solid var(--ink);
   z-index: 70;
   transform: translateX(105%);
-  transition: transform 0.25s ease;
+  visibility: hidden;
+  transition: transform 0.25s ease, visibility 0s linear 0.25s;
   display: flex;
   flex-direction: column;
   box-shadow: -8px 0 24px rgba(14, 14, 14, 0.25);
 }
-#tocpanel.open { transform: translateX(0); }
+#tocpanel.open {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.25s ease;
+}
 #tocpanel .toc-head {
   display: flex;
   justify-content: space-between;
@@ -473,6 +480,9 @@ ul.references li {
 @media (max-width: 640px) {
   .wrap { padding: 18px 16px 72px; border-width: 2px; }
   html, body { font-size: 16px; }
+  /* Align the bar's content with the article text margin (2px border + 16px padding) */
+  #sectionbar { padding: 9px 18px; }
+  .paper table.paper-table { display: block; max-width: 100%; overflow-x: auto; }
 }
 </style>
 </head>
